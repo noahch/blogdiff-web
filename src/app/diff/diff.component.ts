@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from '../services/data.service';
-import {BuildLog} from '../model/model';
+import {BuildLogNode, BuildLogTree, DifferencingResult, EditAction} from '../model/model';
 
 @Component({
   selector: 'app-diff',
@@ -9,23 +9,36 @@ import {BuildLog} from '../model/model';
 })
 export class DiffComponent implements OnInit {
 
-  buildLog: BuildLog;
-  buildLogLeftNr = 0;
+  buildLogIdBefore = 528819683;
+  buildLogIdAfter = 528819683;
+  // buildLogIdAfter = 522909943;
+  loading = true;
+  differencingResult: DifferencingResult;
   constructor(private dataService: DataService) { }
 
 
   ngOnInit() {
-    if (sessionStorage.getItem('Loxxxg') !== null) {
-      this.buildLog = JSON.parse(sessionStorage.getItem('Log'));
-      console.log(this.buildLog);
+    if (sessionStorage.getItem('Log') !== null) {
+      this.differencingResult = JSON.parse(sessionStorage.getItem('Log'));
+      this.loading = false;
     } else {
-      this.dataService.log().subscribe(data => {
-        this.buildLog = data;
-        sessionStorage.setItem('Log', JSON.stringify(data));
-        console.log(this.buildLog);
-      });
+      this.diff();
     }
   }
 
+  diff() {
+    this.loading = true;
+    this.dataService.differencing(this.buildLogIdBefore, this.buildLogIdAfter).subscribe(value => {
+      this.differencingResult = value;
+      this.differencingResult.editTree = this.dataService.mockTree();
+      sessionStorage.setItem('Log', JSON.stringify(this.differencingResult));
+      console.log(this.differencingResult);
+      this.loading = false;
+    });
+  }
+
+  getSubEditTreeForNode(node: BuildLogNode): EditAction {
+    return this.differencingResult.editTree.childrenActions.find(value => value.nodeName === node.nodeName);
+  }
 
 }

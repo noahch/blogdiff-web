@@ -1,0 +1,65 @@
+
+.logLine{
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+}
+
+.node-collapser{
+  position: relative;
+  width: 10px;
+  height: 10px;
+  left: -15px;
+  top: 10px;
+  line-height: 10px;
+  font-size: 14px;
+  color: #7b989c;
+  cursor: pointer;
+}
+
+.node-content {
+  display: block;
+}
+
+.node-name{
+  display: none;
+}
+
+.node {
+  margin-top: -10px;
+}
+
+.collapsed-node .node-content{
+  display: none;
+}
+
+.collapsed-node .node-name {
+  display: block;
+}
+
+.add {
+  background-color: rgba(68, 218, 123, 0.5);
+}
+
+.delete {
+  background-color: rgba(218, 68, 43, 0.5);
+}
+
+.update {
+  background-color: rgba(218, 185, 66, 0.5);
+}
+
+.move {
+  background-color: rgba(172, 68, 218, 0.5);
+}
+
+.add-node .logLine{
+  background-color: rgba(68, 218, 123, 0.5);
+}
+
+.delete-node .logLine{
+  background-color: rgba(218, 68, 43, 0.5);
+}
+
+.move-node .logLine{
+  background-color: rgba(172, 68, 218, 0.5);
+}

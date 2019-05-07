@@ -1,28 +1,21 @@
 <div class="container">
   <div class="row">
-    <div class="col-6 scrolling-wrapper">
+    <input type="text" [(ngModel)]="buildLogIdBefore"/>
+    <input type="text" [(ngModel)]="buildLogIdAfter"/>
+    <button class="btn btn-info" (click)="diff();"><fa-icon [icon]="['fas', 'cog']" [spin]="loading"></fa-icon>Diff!</button>
+  </div>
+  <div class="row" *ngIf="!loading">
+    <div class="col-6 scrolling-wrapper" >
 
-      <div *ngFor="let module of buildLog.buildComponent.modules; let i = index" [id]="i" [class.collapsed-module]="module.displayed">
-        <div class="module-collapser" (click)="module.displayed = !module.displayed">
-          {{module.displayed ? '+':'-'}}
-        </div>
-
-        <div class="module-content">
-          <div *ngFor="let lineBefore of module.linesBeforeGoals" class="logLine">
-           <span>{{lineBefore.lineIndex}}</span> {{lineBefore.content}}
-          </div>
-          <div *ngFor="let goal of module.goals">
-            <div class="logLine" *ngFor="let line of goal.logLines">
-              <span>{{line.lineIndex}}</span>  {{line.content}}
-            </div>
-          </div>
-        </div>
-        <div class="module-name logLine">
-          {{module.name}}
-        </div>
+      <div *ngFor="let node of differencingResult.treeBefore.nodes;">
+        <app-node-displayer [buildLogNode]="node" [editAction]="getSubEditTreeForNode(node)"[leftNode]="true"></app-node-displayer>
       </div>
 
     </div>
-    <div class="col-6"></div>
+    <div class="col-6 scrolling-wrapper">
+      <div *ngFor="let node of differencingResult.treeAfter.nodes;">
+        <app-node-displayer [buildLogNode]="node" [editAction]="getSubEditTreeForNode(node)"  [leftNode]="false"></app-node-displayer>
+      </div>
+    </div>
   </div>
 </div>

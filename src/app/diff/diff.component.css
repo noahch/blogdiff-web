@@ -1,38 +1,7 @@
-.logLine{
-  font-family: "Courier New", Courier, monospace;
-  font-size: 10px;
-}
+
 
 .scrolling-wrapper {
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
-}
-
-.module-collapser{
-  position: relative;
-  width: 10px;
-  height: 10px;
-  left: -10px;
-  top: 10px;
-  line-height: 10px;
-  font-size: 20px;
-  color: red;
-  cursor: pointer;
-}
-
-.module-content {
-  display: block;
-}
-
-.module-name{
-  display: none;
-}
-
-.collapsed-module .module-content{
-  display: none;
-}
-
-.collapsed-module .module-name {
-  display: block;
 }

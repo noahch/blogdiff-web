@@ -1,12 +1,25 @@
 /**
  * Created by Noah Chavannes on 04.05.2019.
  */
-import { Routes } from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {DiffComponent} from './diff/diff.component';
+import {NgModule} from '@angular/core';
 
 const appRoutes: Routes = [
   { path: 'differencing',
     component: DiffComponent
   }
 ];
-export default appRoutes;
+
+@NgModule({
+  exports: [
+    RouterModule
+  ],
+  imports: [
+    RouterModule.forRoot(appRoutes)
+  ],
+  declarations: []
+})
+export class AppRouting {
+}
+

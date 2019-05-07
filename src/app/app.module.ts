@@ -3,19 +3,24 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { DiffComponent } from './diff/diff.component';
-import { RouterModule } from '@angular/router';
-import appRoutes from './app.routing';
 import {DataService} from './services/data.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NodeDisplayerComponent } from './diff/node-displayer/node-displayer.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {AppRouting} from './app.routing';
+import {FormsModule} from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    DiffComponent
+    DiffComponent,
+    NodeDisplayerComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    AppRouting,
+    HttpClientModule,
+    FontAwesomeModule,
+    FormsModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
