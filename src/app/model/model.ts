@@ -21,6 +21,7 @@ export class BuildLogNode {
 }
 
 export class EditTree {
+  nodeActions: NodeAction[];
   childrenActions: EditAction[];
 
 }
@@ -43,10 +44,10 @@ export class LineAction {
 }
 
 export enum LineActionType {
-  ADD,
-  MOVE,
-  DELETE,
-  UPDATE
+  ADD = 'ADD',
+  MOVE = 'MOVE',
+  DELETE = 'DELETE',
+  UPDATE= 'UPDATE'
 }
 
 export class NodeAction {

@@ -28,10 +28,11 @@ export class NodeDisplayerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    // console.log('----------------------------');
-    // console.log(this.buildLogNode.nodeName);
-    // console.log(this.editAction);
-    // console.log('----------------------------');
+    console.log('----------------------------');
+    console.log(this.buildLogNode.nodeName);
+    console.log(this.editAction);
+    console.log(this.parentActions);
+    console.log('----------------------------');
   }
 
   getClassForLine(lineActions: LineAction[], lineNr: number): string {
@@ -69,10 +70,10 @@ export class NodeDisplayerComponent implements OnInit {
   }
 
   getClassForNode(nodeActions: NodeAction[], nodename: string): string {
-    console.log('----------------------------');
-    console.log(this.buildLogNode.nodeName);
-    console.log(this.parentActions);
-    console.log('----------------------------');
+    // console.log('----------------------------');
+    // console.log(this.buildLogNode.nodeName);
+    // console.log(this.parentActions);
+    // console.log('----------------------------');
     if (nodeActions !== undefined) {
       const nodeAction: NodeAction = nodeActions.find(value => {
         return value.nodeName === nodename;
