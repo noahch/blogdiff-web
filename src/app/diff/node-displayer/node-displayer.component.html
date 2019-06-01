@@ -4,7 +4,10 @@
   <fa-icon *ngIf="!buildLogNode.displayed"[icon]="['fas', 'minus-square']"></fa-icon>
 </div>
 <div class="node-content" [ngClass]="getClassForNode(parentActions, buildLogNode.nodeName)">
-  <div *ngFor="let lineBefore of buildLogNode.linesBefore" class="logLine" [ngClass]="getClassForLine(editAction.linesBeforeActions, lineBefore.internalLineIndex)">
+  <div *ngFor="let lineBefore of buildLogNode.linesBefore" class="logLine"
+       [ngClass]="getClassForLine(editAction.linesBeforeActions, lineBefore.internalLineIndex)"
+       (click)="highlightPair($event)"
+       (mouseleave)="removeHighlight()">
     <span>{{lineBefore.lineIndex}}</span> {{lineBefore.content}}
   </div>
   <div *ngFor="let node of buildLogNode.logNodes">

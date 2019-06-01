@@ -52,6 +52,10 @@
   background-color: rgba(172, 68, 218, 0.5);
 }
 
+.move-highlighted {
+  background-color: rgba(218, 11, 146, 0.5);
+}
+
 .add-node .logLine{
   background-color: rgba(68, 218, 123, 0.5);
 }

@@ -98,4 +98,24 @@ export class NodeDisplayerComponent implements OnInit {
     return this.editAction.childrenActions.find(value => value.nodeName === node.nodeName);
   }
 
+  highlightPair(event) {
+    const classList: string [] = event.target.classList;
+    for (const c of classList) {
+      console.log(c);
+    }
+    const lines = document.getElementsByClassName(classList[2]);
+    // @ts-ignore
+    for (const l of lines) {
+      l.classList.add('move-highlighted');
+    }
+  }
+
+  removeHighlight() {
+    const lines = document.getElementsByClassName('move-highlighted');
+    // @ts-ignore
+    for (const l of lines) {
+      l.classList.remove('move-highlighted');
+    }
+  }
+
 }

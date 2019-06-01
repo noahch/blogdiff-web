@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from '../services/data.service';
 import {BuildLogNode, BuildLogTree, DifferencingResult, EditAction} from '../model/model';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-diff',
@@ -11,16 +12,27 @@ export class DiffComponent implements OnInit {
 
   // buildLogIdBefore = 528819683;
   // buildLogIdAfter = 528819683;
-  buildLogIdBefore = 527009657;
-  buildLogIdAfter = 526933017;
+  buildLogIdBefore = 527009658;
+  buildLogIdAfter = 526933018;
 
   // buildLogIdAfter = 522909943;
   loading = true;
   differencingResult: DifferencingResult;
-  constructor(private dataService: DataService) { }
+
+  param1: string;
+  param2: string;
+
+  constructor(private dataService: DataService, private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+      this.param1 = params['jobId'];
+      this.param2 = params['userId'];
+    });
+  }
 
 
   ngOnInit() {
+    console.log(this.param1);
+    console.log(this.param2);
     if (sessionStorage.getItem('Log') !== null) {
       this.differencingResult = JSON.parse(sessionStorage.getItem('Log'));
       console.log(this.differencingResult);
