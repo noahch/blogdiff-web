@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {DifferencingResult, EditAction, EditTree, LineAction, LineActionType, NodeAction, NodeActionType} from '../model/model';
+import {DifferencingResult, EditAction, EditTree, Job, LineAction, LineActionType, NodeAction, NodeActionType} from '../model/model';
 
 
 @Injectable({
@@ -12,8 +12,15 @@ export class DataService {
   baseUrl  = 'http://localhost:8080/';
   constructor(private httpClient: HttpClient) { }
 
-  differencing(id1: number, id2: number): Observable<DifferencingResult> {
-    return this.httpClient.get<DifferencingResult>(this.baseUrl + id1  + '/' + id2);
+  differencing(id1: number): Observable<DifferencingResult> {
+    return this.httpClient.get<DifferencingResult>(this.baseUrl + '/differencing/' + id1);
+  }
+
+  getJobs(id: number): Observable<Job[]> {
+    return this.httpClient.get<Job[]>(this.baseUrl + '/jobs/' + id);
+  }
+  differencingMulti(id1: string, id2: string): Observable<DifferencingResult> {
+    return this.httpClient.get<DifferencingResult>(this.baseUrl + '/differencing/' + id1  + '/' + id2);
   }
 
   mockTree(): EditTree {

@@ -1,9 +1,9 @@
-<div [class.collapsed-node]="buildLogNode.displayed" class="node" >
+<div [class.collapsed-node]="buildLogNode.displayed" class="node" *ngIf="buildLogNode !== undefined">
 <div class="node-collapser" (click)="buildLogNode.displayed = !buildLogNode.displayed">
   <fa-icon *ngIf="buildLogNode.displayed" [icon]="['fas', 'plus-square']"></fa-icon>
   <fa-icon *ngIf="!buildLogNode.displayed"[icon]="['fas', 'minus-square']"></fa-icon>
 </div>
-<div class="node-content" [ngClass]="getClassForNode(parentActions, buildLogNode.nodeName)">
+<div class="node-content" [ngClass]="getClassForNode(parentActions, buildLogNode.nodeName)" *ngIf="buildLogNode !== undefined">
   <div *ngFor="let lineBefore of buildLogNode.linesBefore" class="logLine"
        [ngClass]="getClassForLine(editAction.linesBeforeActions, lineBefore.internalLineIndex)"
        (click)="highlightPair($event)"
@@ -17,7 +17,7 @@
     <span>{{lineAfter.lineIndex}}</span> {{lineAfter.content}}
   </div>
 </div>
-<div class="node-name logLine">
+<div class="node-name logLine" *ngIf="buildLogNode !== undefined">
    {{buildLogNode.nodeName}}
 </div>
 </div>

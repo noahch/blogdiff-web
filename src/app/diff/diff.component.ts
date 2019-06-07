@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from '../services/data.service';
-import {BuildLogNode, BuildLogTree, DifferencingResult, EditAction} from '../model/model';
+import {BuildLogNode, BuildLogTree, DifferencingResult, EditAction, Job, Settings} from '../model/model';
 import {ActivatedRoute} from '@angular/router';
+import {LoadingService} from '../services/loading.service';
 
 @Component({
   selector: 'app-diff',
@@ -12,49 +13,85 @@ export class DiffComponent implements OnInit {
 
   // buildLogIdBefore = 528819683;
   // buildLogIdAfter = 528819683;
-  buildLogIdBefore = 527009658;
+  // jobIdBefore = 522900016;
   buildLogIdAfter = 526933018;
+  selectedLog1: string = null;
+  selectedLog2: string  = null;
+
+  manual_mode = true;
 
   // buildLogIdAfter = 522909943;
-  loading = true;
   differencingResult: DifferencingResult;
 
-  param1: string;
-  param2: string;
+  jobId_param: number;
+  userId_param: string;
+  settings: Settings = new Settings();
+  jobs: Job[];
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) {
+
+  constructor(private dataService: DataService, private route: ActivatedRoute, public loadingService: LoadingService) {
     this.route.queryParams.subscribe(params => {
-      this.param1 = params['jobId'];
-      this.param2 = params['userId'];
+      this.jobId_param = params['jobId'];
+      this.userId_param = params['userId'];
+      if (this.jobId_param !== undefined) {
+         this.manual_mode = false;
+      }
     });
   }
 
 
   ngOnInit() {
-    console.log(this.param1);
-    console.log(this.param2);
-    if (sessionStorage.getItem('Log') !== null) {
-      this.differencingResult = JSON.parse(sessionStorage.getItem('Log'));
-      console.log(this.differencingResult);
-      this.loading = false;
-    } else {
-      this.diff();
+    if (!this.manual_mode) {
+      if (this.jobId_param !== undefined) {
+        this.loadingService.startLoading();
+        this.dataService.getJobs(this.jobId_param).subscribe(value => {
+          this.jobs = value;
+          this.loadingService.stopLoading();
+        });
+      }
+      if (sessionStorage.getItem(this.jobId_param.toString()) !== null) {
+        this.differencingResult = JSON.parse(sessionStorage.getItem(this.jobId_param.toString()));
+        this.selectedLog1 = this.differencingResult.jobIdBefore;
+        this.selectedLog2 = this.differencingResult.jobIdAfter;
+      } else {
+        this.diff();
+      }
     }
   }
 
   diff() {
-    this.loading = true;
-    this.dataService.differencing(this.buildLogIdBefore, this.buildLogIdAfter).subscribe(value => {
+    this.loadingService.startLoading();
+    this.dataService.differencing(this.jobId_param).subscribe(value => {
       this.differencingResult = value;
+      this.selectedLog1 = value.jobIdBefore;
+      this.selectedLog2 = value.jobIdAfter;
       // this.differencingResult.editTree = this.dataService.mockTree();
-      sessionStorage.setItem('Log', JSON.stringify(this.differencingResult));
+      sessionStorage.setItem(this.jobId_param.toString(), JSON.stringify(this.differencingResult));
       console.log(this.differencingResult);
-      this.loading = false;
+      this.loadingService.stopLoading();
     });
+  }
+
+  diffMulti() {
+    const key = this.selectedLog1 + '.' + this.selectedLog2;
+    if (sessionStorage.getItem(key) !== null) {
+      this.differencingResult = JSON.parse(sessionStorage.getItem(key));
+    } else {
+      this.loadingService.startLoading();
+      this.dataService.differencingMulti(this.selectedLog1, this.selectedLog2).subscribe(value => {
+        this.differencingResult = value;
+        sessionStorage.setItem(key, JSON.stringify(this.differencingResult));
+        this.loadingService.stopLoading();
+      });
+    }
   }
 
   getSubEditTreeForNode(node: BuildLogNode): EditAction {
     return this.differencingResult.editTree.childrenActions.find(value => value.nodeName === node.nodeName);
   }
 
+  toTop() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  }
 }

@@ -1,7 +1,35 @@
-
-
 .scrolling-wrapper {
   overflow-x: scroll;
   overflow-y: hidden;
   /*white-space: nowrap;*/
+}
+
+.log-col-title{
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+}
+
+.app-select{
+  font-size: 12px;
+  width: 100%;
+}
+
+
+.custom-control-input:checked~.custom-control-label::before {
+  background-color: #ADC2BF !important;
+  border-color: #90a19f !important;
+}
+
+.custom-switch-fake-label{
+  position: relative;
+  right: 3rem;
+}
+
+.stats{
+  font-size: 12px;
+  width: 150px;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
 }

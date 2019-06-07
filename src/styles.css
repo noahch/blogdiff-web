@@ -1,1 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+.background-primary{
+  background-color: #ADC2BF !important;
+  border-color: #ADC2BF !important;
+}
+
+.background-secondary{
+  background-color: #DDDDDD !important;
+  border-color: #DDDDDD !important;
+}
+
+.color-primary{
+  color: #41635E !important;
+}
+
+.color-secondary{
+  color: #ADC2BF !important;
+}
+
+.color-white{
+  color: #FFFFFF !important;
+}
+
+.app-h1{
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.app-h2{
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.self-bottom{
+  position: absolute;
+  bottom: 0px;
+}
+
+.btn-sm{
+  border-radius: 0px !important;
+}

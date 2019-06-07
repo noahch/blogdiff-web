@@ -64,7 +64,28 @@ export enum NodeActionType {
 }
 
 export class DifferencingResult {
+  jobIdBefore: string;
+  jobIdAfter: string;
   treeBefore: BuildLogTree;
   treeAfter: BuildLogTree;
   editTree: EditTree;
+}
+
+export class Settings {
+  jobIdBefore: string;
+  jobIdAfter: string;
+  showAdditions: boolean;
+  showDeletions: boolean;
+  showUpdates: boolean;
+  showMoves: boolean;
+  wrapLines: boolean;
+  differencer: string;
+  highlightMove: boolean;
+  constructor() {}
+}
+
+export class Job {
+  id: number;
+  number: string;
+  finished_at: string;
 }

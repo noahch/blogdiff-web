@@ -1,21 +1,113 @@
-<div class="container">
-  <div class="row">
-    <input type="text" [(ngModel)]="buildLogIdBefore"/>
-    <input type="text" [(ngModel)]="buildLogIdAfter"/>
-    <button class="btn btn-info" (click)="diff();"><fa-icon [icon]="['fas', 'cog']" [spin]="loading"></fa-icon>Diff!</button>
-  </div>
-  <div class="row" *ngIf="!loading">
-    <div class="col-6 scrolling-wrapper" >
-
-      <div *ngFor="let node of differencingResult.treeBefore.nodes;">
-        <app-node-displayer [buildLogNode]="node" [editAction]="getSubEditTreeForNode(node)"[leftNode]="true"></app-node-displayer>
+<div class="row mt-2">
+  <div class="col-6">
+    <div class="row">
+      <div class="col-8">
+        <h1 class="app-h1 color-primary">Build Log Selection:</h1>
       </div>
-
+      <div class="col-4">
+        <div class="custom-control custom-switch">
+          <label class="app-h2 color-secondary custom-switch-fake-label">Manual mode</label>
+          <input type="checkbox" class="custom-control-input" id="modeSwitch" [(ngModel)]="manual_mode" [disabled]="jobId_param === undefined">
+          <label class="custom-control-label app-h2 color-secondary" for="modeSwitch"></label>
+        </div>
+      </div>
     </div>
-    <div class="col-6 scrolling-wrapper">
-      <div *ngFor="let node of differencingResult.treeAfter.nodes;">
-        <app-node-displayer [buildLogNode]="node" [editAction]="getSubEditTreeForNode(node)"  [leftNode]="false"></app-node-displayer>
+
+    <div class="row" *ngIf="!manual_mode">
+      <div class="col-5">
+        <h2 class="app-h2 color-secondary">Select Log 1:</h2>
+        <select size="5" class="app-select" [(ngModel)]="selectedLog1">
+          <option *ngFor="let job of jobs;" [value]="job.id" >
+            #{{job.number}} | {{job.id}} | {{job.finished_at | date:'shortDate'}}</option>
+        </select>
+
       </div>
+      <div class="col-5">
+        <h2 class="app-h2 color-secondary">Select Log 2:</h2>
+        <select size="5" class="app-select" [(ngModel)]="selectedLog2">
+          <option *ngFor="let job of jobs;" [value]="job.id">
+            #{{job.number}} | {{job.id}} | {{job.finished_at | date:'shortDate'}}</option>
+        </select>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-sm btn-primary background-primary self-bottom" (click)="diffMulti()">Apply</button>
+      </div>
+    </div>
+    <div class="row" *ngIf="manual_mode">
+      <div class="col-12">
+        repo url<br>
+        select log <br>
+        other log will be selected manually
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <h1 class="app-h1 color-primary">Settings:</h1>
+    <div class="row">
+      <div class="col-6">Settings1</div>
+      <div class="col-6">Settings2</div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+<div class="row mt-3">
+  <div class="col-12">
+    <h1 class="app-h1 color-primary">Difference:</h1>
+  </div>
+
+  <!--<input type="text" [(ngModel)]="jobIdBefore"/>-->
+  <!--<button class="btn btn-info" (click)="diff();">-->
+    <!--<fa-icon [icon]="['fas', 'cog']" [spin]="loading"></fa-icon>-->
+    <!--Diff!-->
+  <!--</button>-->
+</div>
+<div class="row" *ngIf="differencingResult !== undefined">
+
+  <div class="col-6 scrolling-wrapper">
+    <div class="log-col-title background-primary color-white pl-2">
+      Log 1
+    </div>
+    <div *ngFor="let node of differencingResult.treeBefore.nodes;">
+      <app-node-displayer [buildLogNode]="node" [editAction]="getSubEditTreeForNode(node)"
+                          [leftNode]="true"></app-node-displayer>
+    </div>
+
+  </div>
+  <div class="col-6 scrolling-wrapper">
+    <div class="log-col-title background-primary color-white pl-2">
+      Log 2
+    </div>
+    <div *ngFor="let node of differencingResult.treeAfter.nodes;">
+      <app-node-displayer [buildLogNode]="node" [editAction]="getSubEditTreeForNode(node)"
+                          [leftNode]="false"></app-node-displayer>
+    </div>
+  </div>
+</div>
+
+<div class="stats background-primary color-white py-1 pl-2">
+  <div class="row">
+    <div class="col-8">Additions:</div>
+    <div class="col-4">10</div>
+  </div>
+  <div class="row">
+    <div class="col-8">Deletions:</div>
+    <div class="col-4">10</div>
+  </div>
+  <div class="row">
+    <div class="col-8">Updates:</div>
+    <div class="col-4">10</div>
+  </div>
+  <div class="row">
+    <div class="col-8">Moves:</div>
+    <div class="col-4">10</div>
+  </div>
+  <div class="row">
+    <div class="col-12 float-right">
+      <button class="btn btn-sm background-secondary" (click)="toTop()">Back to Top</button>
     </div>
   </div>
 </div>
