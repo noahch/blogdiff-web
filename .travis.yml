@@ -12,7 +12,7 @@ before_script:
   - npm install -g @angular/cli
 script:
   - ng lint
-  - ng build --prod
+  - travis_wait 80 ng build --prodng build
   - docker build -t noahch/blogdiff-web .
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
