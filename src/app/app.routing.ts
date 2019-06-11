@@ -4,10 +4,14 @@
 import {RouterModule, Routes} from '@angular/router';
 import {DiffComponent} from './diff/diff.component';
 import {NgModule} from '@angular/core';
+import {DiffSurveyComponent} from './diff-survey/diff-survey.component';
 
 const appRoutes: Routes = [
   { path: 'differencing',
     component: DiffComponent
+  },
+  { path: 'survey',
+    component: DiffSurveyComponent
   }
 ];
 

@@ -26,7 +26,7 @@ export class LoadingService {
 
   stopLoading() {
     this.loadingCount--;
-    if (this.loadingCount === 0){
+    if (this.loadingCount === 0) {
       this.loading = false;
     }
   }

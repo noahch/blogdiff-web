@@ -8,7 +8,7 @@ import {debounceTime} from 'rxjs/internal/operators';
   templateUrl: './loading-screen.component.html',
   styleUrls: ['./loading-screen.component.css']
 })
-export class LoadingScreenComponent implements OnInit, OnDestroy{
+export class LoadingScreenComponent implements OnInit, OnDestroy {
 
   loading = false;
   loadingSubscription: Subscription;

@@ -69,18 +69,20 @@ export class DifferencingResult {
   treeBefore: BuildLogTree;
   treeAfter: BuildLogTree;
   editTree: EditTree;
+  additions: number;
+  deletions: number;
+  moves: number;
+  updates: number;
 }
 
 export class Settings {
-  jobIdBefore: string;
-  jobIdAfter: string;
-  showAdditions: boolean;
-  showDeletions: boolean;
-  showUpdates: boolean;
-  showMoves: boolean;
-  wrapLines: boolean;
+  showAdditions = true;
+  showDeletions = true;
+  showUpdates = true;
+  showMoves = true;
+  wrapLines = true;
   differencer: string;
-  highlightMove: boolean;
+  highlightMove = true;
   constructor() {}
 }
 

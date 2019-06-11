@@ -1,7 +1,11 @@
 .scrolling-wrapper {
   overflow-x: scroll;
   overflow-y: hidden;
-  /*white-space: nowrap;*/
+
+}
+
+.no-wrap{
+  white-space: nowrap;
 }
 
 .log-col-title{
@@ -32,4 +36,12 @@
   position: fixed;
   bottom: 0px;
   right: 0px;
+}
+
+.settings-panel {
+  position: sticky;
+  top: 0px;
+  z-index: 1049;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #90a19f;
 }

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BuildLogNode, EditAction, LineAction, LineActionType, NodeAction, NodeActionType} from '../../model/model';
+import {BuildLogNode, EditAction, LineAction, LineActionType, NodeAction, NodeActionType, Settings} from '../../model/model';
 
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
@@ -25,14 +25,12 @@ export class NodeDisplayerComponent implements OnInit {
   @Input()
   parentActions: NodeAction[];
 
+  @Input()
+  settings: Settings;
+
   constructor() { }
 
   ngOnInit() {
-    console.log('----------------------------');
-    console.log(this.buildLogNode.nodeName);
-    console.log(this.editAction);
-    console.log(this.parentActions);
-    console.log('----------------------------');
   }
 
   getClassForLine(lineActions: LineAction[], lineNr: number): string {
@@ -42,7 +40,7 @@ export class NodeDisplayerComponent implements OnInit {
       });
       if (lineAction !== undefined) {
         if (!this.leftNode) {
-          return 'add';
+          return this.settings.showAdditions ? 'add' : '';
         }
       }
       lineAction = lineActions.find(value => {
@@ -50,20 +48,22 @@ export class NodeDisplayerComponent implements OnInit {
       });
       if (lineAction !== undefined) {
         if (this.leftNode) {
-          return 'delete';
+          return this.settings.showDeletions ? 'delete' : '';
         }
       }
       lineAction = lineActions.find(value => {
         return value.positionBefore === lineNr && value.positionAfter === lineNr && value.type === LineActionType.UPDATE;
       });
       if (lineAction !== undefined) {
-          return 'update';
+        return this.settings.showUpdates ? 'update' : '';
       }
       lineAction = lineActions.find(value => {
         return ((value.positionBefore === lineNr && this.leftNode ) || ( value.positionAfter === lineNr && !this.leftNode)) && value.type === LineActionType.MOVE;
       });
       if (lineAction !== undefined) {
-        return 'move' + ' ' + 'm' + lineAction.positionBefore + '_' + lineAction.positionAfter;
+        if (this.settings.showMoves) {
+          return 'move' + ' ' + 'm' + lineAction.positionBefore + '_' + lineAction.positionAfter;
+        }
       }
       return '';
     }
@@ -79,13 +79,13 @@ export class NodeDisplayerComponent implements OnInit {
         return value.nodeName === nodename;
       });
       if (nodeAction !== undefined) {
-        if (nodeAction.type === NodeActionType.ADD && !this.leftNode) {
+        if (nodeAction.type === NodeActionType.ADD && !this.leftNode && this.settings.showAdditions) {
           return 'add-node';
         }
-        if (nodeAction.type === NodeActionType.DELETE && this.leftNode) {
+        if (nodeAction.type === NodeActionType.DELETE && this.leftNode && this.settings.showDeletions) {
           return 'delete-node';
         }
-        if (nodeAction.type === NodeActionType.MOVE) {
+        if (nodeAction.type === NodeActionType.MOVE && this.settings.showMoves) {
           return 'move-node';
         }
       }
@@ -99,14 +99,16 @@ export class NodeDisplayerComponent implements OnInit {
   }
 
   highlightPair(event) {
-    const classList: string [] = event.target.classList;
-    for (const c of classList) {
-      console.log(c);
-    }
-    const lines = document.getElementsByClassName(classList[2]);
-    // @ts-ignore
-    for (const l of lines) {
-      l.classList.add('move-highlighted');
+    if (this.settings.highlightMove) {
+      const classList: string [] = event.target.classList;
+      for (const c of classList) {
+        console.log(c);
+      }
+      const lines = document.getElementsByClassName(classList[2]);
+      // @ts-ignore
+      for (const l of lines) {
+        l.classList.add('move-highlighted');
+      }
     }
   }
 

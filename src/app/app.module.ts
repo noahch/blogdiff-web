@@ -11,21 +11,26 @@ import {AppRouting} from './app.routing';
 import {FormsModule} from '@angular/forms';
 import { HeaderComponent } from './shared/header/header.component';
 import { LoadingScreenComponent } from './shared/loading-screen/loading-screen.component';
-import {LoadingScreenInterceptor} from './shared/LoadingScreenInterceptor';
+import {SurveyComponent} from './shared/survey/survey.component';
+import { DiffSurveyComponent } from './diff-survey/diff-survey.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
     DiffComponent,
     NodeDisplayerComponent,
     HeaderComponent,
-    LoadingScreenComponent
+    SurveyComponent,
+    LoadingScreenComponent,
+    DiffSurveyComponent
   ],
   imports: [
     BrowserModule,
     AppRouting,
     HttpClientModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [DataService
     // ,

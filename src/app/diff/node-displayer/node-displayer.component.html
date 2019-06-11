@@ -11,7 +11,7 @@
     <span>{{lineBefore.lineIndex}}</span> {{lineBefore.content}}
   </div>
   <div *ngFor="let node of buildLogNode.logNodes">
-      <app-node-displayer [buildLogNode]="node" [editAction]="getSubEditTreeForNode(node)" [leftNode]="leftNode" [parentActions]="editAction.nodeActions"></app-node-displayer>
+      <app-node-displayer [buildLogNode]="node" [editAction]="getSubEditTreeForNode(node)" [leftNode]="leftNode" [parentActions]="editAction.nodeActions" [settings]="settings"></app-node-displayer>
   </div>
   <div *ngFor="let lineAfter of buildLogNode.linesAfter" class="logLine" [ngClass]="getClassForLine(editAction.linesAfterActions, lineAfter.internalLineIndex)">
     <span>{{lineAfter.lineIndex}}</span> {{lineAfter.content}}

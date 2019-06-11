@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {DiffSurveyComponent} from '../../diff-survey/diff-survey.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private modalService: NgbModal) { }
+  interval;
   ngOnInit() {
+
+
+
+      this.interval = setInterval(() => {
+        this.openSurvey();
+        clearInterval(this.interval);
+      }, 30000);
+
+
+  }
+
+  openSurvey() {
+    this.modalService.open(DiffSurveyComponent, { size: 'lg' });
+  }
+  openInfo() {
+    this.modalService.open(DiffSurveyComponent, { size: 'lg' });
   }
 
 }

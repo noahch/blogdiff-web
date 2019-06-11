@@ -1,4 +1,4 @@
-<div class="row mt-2">
+<div class="row mb-3 py-3 settings-panel">
   <div class="col-6">
     <div class="row">
       <div class="col-8">
@@ -7,16 +7,16 @@
       <div class="col-4">
         <div class="custom-control custom-switch">
           <label class="app-h2 color-secondary custom-switch-fake-label">Manual mode</label>
-          <input type="checkbox" class="custom-control-input" id="modeSwitch" [(ngModel)]="manual_mode" [disabled]="jobId_param === undefined">
+          <input [(ngModel)]="manual_mode" [disabled]="jobId_param === undefined" class="custom-control-input" id="modeSwitch" type="checkbox">
           <label class="custom-control-label app-h2 color-secondary" for="modeSwitch"></label>
         </div>
       </div>
     </div>
 
-    <div class="row" *ngIf="!manual_mode">
+    <div *ngIf="!manual_mode" class="row">
       <div class="col-5">
         <h2 class="app-h2 color-secondary">Select Log 1:</h2>
-        <select size="5" class="app-select" [(ngModel)]="selectedLog1">
+        <select [(ngModel)]="selectedLog1" class="app-select" size="5">
           <option *ngFor="let job of jobs;" [value]="job.id" >
             #{{job.number}} | {{job.id}} | {{job.finished_at | date:'shortDate'}}</option>
         </select>
@@ -24,28 +24,97 @@
       </div>
       <div class="col-5">
         <h2 class="app-h2 color-secondary">Select Log 2:</h2>
-        <select size="5" class="app-select" [(ngModel)]="selectedLog2">
+        <select [(ngModel)]="selectedLog2" class="app-select" size="5">
           <option *ngFor="let job of jobs;" [value]="job.id">
             #{{job.number}} | {{job.id}} | {{job.finished_at | date:'shortDate'}}</option>
         </select>
       </div>
       <div class="col-2">
-        <button class="btn btn-sm btn-primary background-primary self-bottom" (click)="diffMulti()">Apply</button>
+        <button (click)="diffMulti()" class="btn btn-sm btn-primary background-primary self-bottom">Apply</button>
       </div>
     </div>
-    <div class="row" *ngIf="manual_mode">
-      <div class="col-12">
-        repo url<br>
-        select log <br>
-        other log will be selected manually
+    <div *ngIf="manual_mode" class="row">
+      <div class="col-4">
+        <label class="app-h2 color-secondary">Repository Slug</label>
+      </div>
+      <div class="col-6">
+        <input [(ngModel)]="repoSlug" placeholder="username/repository" pattern="\w*\/\w*"/>
+        <div class="" *ngIf="showError">
+          Not a valid pattern.. try username/repository
+        </div>
+      </div>
+      <div class="col-2">
+        <button (click)="diffManual()" class="btn btn-sm btn-primary background-primary self-bottom">Apply</button>
       </div>
     </div>
   </div>
   <div class="col-6">
     <h1 class="app-h1 color-primary">Settings:</h1>
     <div class="row">
-      <div class="col-6">Settings1</div>
-      <div class="col-6">Settings2</div>
+      <div class="col-5">
+        <div class="row">
+          <div class="col-8">  <label class="app-h2 color-secondary">Show Additions</label></div>
+          <div class="col-4">
+            <div class="custom-control custom-switch">
+              <input [(ngModel)]="settings.showAdditions" class="custom-control-input" id="addSwitch" type="checkbox">
+              <label class="custom-control-label app-h2 color-secondary" for="addSwitch"></label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <label class="app-h2 color-secondary ">Show Deletions</label>
+          </div>
+          <div class="col-4">
+            <div class="custom-control custom-switch">
+            <input [(ngModel)]="settings.showDeletions" class="custom-control-input" id="deleteSwitch" type="checkbox">
+            <label class="custom-control-label app-h2 color-secondary" for="deleteSwitch"></label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <label class="app-h2 color-secondary">Show Updates</label>
+          </div>
+          <div class="col-4">
+            <div class="custom-control custom-switch">
+            <input [(ngModel)]="settings.showUpdates" class="custom-control-input" id="updateSwitch" type="checkbox">
+            <label class="custom-control-label app-h2 color-secondary" for="updateSwitch"></label>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <label class="app-h2 color-secondary">Show Moves</label>
+          </div>
+          <div class="col-4">
+            <div class="custom-control custom-switch">
+             <input [(ngModel)]="settings.showMoves" class="custom-control-input" id="moveSwitch" type="checkbox">
+             <label class="custom-control-label app-h2 color-secondary" for="moveSwitch"></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-5">
+        <div class="row">
+          <div class="col-8"><label class="app-h2 color-secondary">Highlight Moves</label></div>
+          <div class="col-4">
+            <div class="custom-control custom-switch">
+              <input [(ngModel)]="settings.highlightMove" class="custom-control-input" id="highlightSwitch" type="checkbox">
+              <label class="custom-control-label app-h2 color-secondary" for="highlightSwitch"></label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8"><label class="app-h2 color-secondary">Wrap Lines</label></div>
+          <div class="col-4">
+            <div class="custom-control custom-switch">
+              <input [(ngModel)]="settings.wrapLines" class="custom-control-input" id="wrapSwitch" type="checkbox">
+              <label class="custom-control-label app-h2 color-secondary" for="wrapSwitch"></label>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--      <div class="col-2"> <button class="btn btn-sm btn-primary background-primary self-bottom" (click)="newSettings()">Apply</button></div>-->
     </div>
   </div>
 
@@ -65,49 +134,54 @@
     <!--Diff!-->
   <!--</button>-->
 </div>
-<div class="row" *ngIf="differencingResult !== undefined">
+<div *ngIf="differencingResult !== undefined" class="row">
 
-  <div class="col-6 scrolling-wrapper">
+  <div class="col-6 scrolling-wrapper" [class.no-wrap]="!settings.wrapLines">
     <div class="log-col-title background-primary color-white pl-2">
       Log 1
     </div>
-    <div *ngFor="let node of differencingResult.treeBefore.nodes;">
-      <app-node-displayer [buildLogNode]="node" [editAction]="getSubEditTreeForNode(node)"
-                          [leftNode]="true"></app-node-displayer>
+    <div *ngIf="differencingResult.treeBefore !== null">
+      <div *ngFor="let node of differencingResult.treeBefore.nodes;">
+        <app-node-displayer [buildLogNode]="node" [editAction]="getSubEditTreeForNode(node)"
+                            [leftNode]="true" [settings]="settings"></app-node-displayer>
+      </div>
+    </div>
+    <div *ngIf="differencingResult.treeBefore == null">
+      No previous log could be loaded.
     </div>
 
   </div>
-  <div class="col-6 scrolling-wrapper">
+  <div class="col-6 scrolling-wrapper" [class.no-wrap]="!settings.wrapLines">
     <div class="log-col-title background-primary color-white pl-2">
       Log 2
     </div>
     <div *ngFor="let node of differencingResult.treeAfter.nodes;">
       <app-node-displayer [buildLogNode]="node" [editAction]="getSubEditTreeForNode(node)"
-                          [leftNode]="false"></app-node-displayer>
+                          [leftNode]="false" [settings]="settings"></app-node-displayer>
     </div>
   </div>
 </div>
 
-<div class="stats background-primary color-white py-1 pl-2">
+<div class="stats background-primary color-white py-1 pl-2"  *ngIf="differencingResult !== undefined">
   <div class="row">
     <div class="col-8">Additions:</div>
-    <div class="col-4">10</div>
+    <div class="col-4">{{differencingResult.additions}}</div>
   </div>
   <div class="row">
     <div class="col-8">Deletions:</div>
-    <div class="col-4">10</div>
+    <div class="col-4">{{differencingResult.deletions}}</div>
   </div>
   <div class="row">
     <div class="col-8">Updates:</div>
-    <div class="col-4">10</div>
+    <div class="col-4">{{differencingResult.updates}}</div>
   </div>
   <div class="row">
     <div class="col-8">Moves:</div>
-    <div class="col-4">10</div>
+    <div class="col-4">{{differencingResult.moves}}</div>
   </div>
   <div class="row">
     <div class="col-12 float-right">
-      <button class="btn btn-sm background-secondary" (click)="toTop()">Back to Top</button>
+      <button (click)="toTop()" class="btn btn-sm background-secondary">Back to Top</button>
     </div>
   </div>
 </div>

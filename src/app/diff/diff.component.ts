@@ -3,6 +3,9 @@ import {DataService} from '../services/data.service';
 import {BuildLogNode, BuildLogTree, DifferencingResult, EditAction, Job, Settings} from '../model/model';
 import {ActivatedRoute} from '@angular/router';
 import {LoadingService} from '../services/loading.service';
+import {Validators} from '@angular/forms';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {DiffSurveyComponent} from '../diff-survey/diff-survey.component';
 
 @Component({
   selector: 'app-diff',
@@ -19,17 +22,18 @@ export class DiffComponent implements OnInit {
   selectedLog2: string  = null;
 
   manual_mode = true;
-
+  repoSlug: string;
+  showError = false;
   // buildLogIdAfter = 522909943;
   differencingResult: DifferencingResult;
 
   jobId_param: number;
   userId_param: string;
-  settings: Settings = new Settings();
+  settings: Settings;
   jobs: Job[];
 
 
-  constructor(private dataService: DataService, private route: ActivatedRoute, public loadingService: LoadingService) {
+  constructor(private dataService: DataService, private route: ActivatedRoute, public loadingService: LoadingService, private modalService: NgbModal) {
     this.route.queryParams.subscribe(params => {
       this.jobId_param = params['jobId'];
       this.userId_param = params['userId'];
@@ -37,6 +41,7 @@ export class DiffComponent implements OnInit {
          this.manual_mode = false;
       }
     });
+    this.settings = new Settings();
   }
 
 
@@ -81,10 +86,31 @@ export class DiffComponent implements OnInit {
       this.dataService.differencingMulti(this.selectedLog1, this.selectedLog2).subscribe(value => {
         this.differencingResult = value;
         sessionStorage.setItem(key, JSON.stringify(this.differencingResult));
+        console.log(this.differencingResult);
         this.loadingService.stopLoading();
       });
     }
   }
+
+  diffManual() {
+
+    if (this.repoSlug.match('^\\w*\\/\\w*$') !== null) {
+      this.showError = false;
+      this.loadingService.startLoading();
+      const repoSplit = this.repoSlug.split('/');
+      this.dataService.getJobsForRepo(repoSplit[0], repoSplit[1]).subscribe(value => {
+
+        console.log(value);
+        this.loadingService.stopLoading();
+      });
+    } else {
+      this.showError = true;
+    }
+    return;
+
+
+  }
+
 
   getSubEditTreeForNode(node: BuildLogNode): EditAction {
     return this.differencingResult.editTree.childrenActions.find(value => value.nodeName === node.nodeName);
