@@ -1,4 +1,6 @@
 language: node_js
+services:
+  - 'docker'
 node_js:
   - "10"
 dist: trusty
@@ -11,3 +13,9 @@ before_script:
 script:
   - ng lint
   - ng build --prod --base-href https://github.com/noahch/blogdiff-web
+  - docker build -t noahch/blogdiff-web .
+after_success:
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+    docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
+    docker push noahch/blogdiff-web;
+    fi
