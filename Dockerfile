@@ -1,11 +1,7 @@
-FROM node:10
+FROM nginx:alpine
 
-WORKDIR /usr/src/app
+COPY nginx.conf /etc/nginx/nginx.conf
 
-RUN npm install pm2 -g
+WORKDIR /usr/share/nginx/html
 
-EXPOSE 4200
-
-COPY dist dist
-
-CMD ["pm2-runtime", "dist/server.js"]
+COPY dist/ .
