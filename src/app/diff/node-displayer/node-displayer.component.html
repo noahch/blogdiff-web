@@ -5,7 +5,7 @@
 </div>
 <div class="node-content" [ngClass]="getClassForNode(parentActions, buildLogNode.nodeName)" *ngIf="buildLogNode !== undefined">
   <div *ngFor="let lineBefore of buildLogNode.linesBefore" class="logLine"
-       [ngClass]="getClassForLine(editAction.linesBeforeActions, lineBefore.internalLineIndex)"
+       [ngClass]="getClassForLine(editAction?.linesBeforeActions, lineBefore.internalLineIndex)"
        (click)="highlightPair($event)"
        (mouseleave)="removeHighlight()">
     <span>{{lineBefore.lineIndex}}</span> {{lineBefore.content}}
@@ -13,7 +13,7 @@
   <div *ngFor="let node of buildLogNode.logNodes">
       <app-node-displayer [buildLogNode]="node" [editAction]="getSubEditTreeForNode(node)" [leftNode]="leftNode" [parentActions]="editAction.nodeActions" [settings]="settings"></app-node-displayer>
   </div>
-  <div *ngFor="let lineAfter of buildLogNode.linesAfter" class="logLine" [ngClass]="getClassForLine(editAction.linesAfterActions, lineAfter.internalLineIndex)">
+  <div *ngFor="let lineAfter of buildLogNode.linesAfter" class="logLine" [ngClass]="getClassForLine(editAction?.linesAfterActions, lineAfter.internalLineIndex)">
     <span>{{lineAfter.lineIndex}}</span> {{lineAfter.content}}
   </div>
 </div>

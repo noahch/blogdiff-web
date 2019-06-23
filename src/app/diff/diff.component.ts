@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from '../services/data.service';
-import {BuildLogNode, BuildLogTree, DifferencingResult, EditAction, Job, Settings} from '../model/model';
+import {BuildLogNode, BuildLogTree, DifferencingResult, EditAction, Job, MessageType, Settings} from '../model/model';
 import {ActivatedRoute} from '@angular/router';
 import {LoadingService} from '../services/loading.service';
 import {Validators} from '@angular/forms';
@@ -109,6 +109,15 @@ export class DiffComponent implements OnInit {
     return;
 
 
+  }
+
+  containsErrors(): boolean {
+    if (this.differencingResult !== undefined && this.differencingResult.messageList !== undefined && this.differencingResult.messageList !== null) {
+      if (this.differencingResult.messageList.filter(value => value.messageType === MessageType.ERROR).length > 0){
+        return true;
+      }
+    }
+    return false;
   }
 
 

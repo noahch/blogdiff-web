@@ -13,10 +13,11 @@ export class HeaderComponent implements OnInit {
   interval;
   ngOnInit() {
 
-
-
       this.interval = setInterval(() => {
-        this.openSurvey();
+        const alreadySent = sessionStorage.getItem('surveySent');
+        if (alreadySent !== 'true') {
+          this.openSurvey();
+        }
         clearInterval(this.interval);
       }, 30000);
 

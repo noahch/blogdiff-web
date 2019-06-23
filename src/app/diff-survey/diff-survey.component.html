@@ -1,4 +1,7 @@
-<div class="p-3">
+<div class="p-3" *ngIf="!alreadyDone">
 <h3>Please help us! It only takes a minute!</h3>
 <survey [json]="json" (submitSurvey)="sendData($event)" ></survey>
+</div>
+<div class="p-3" *ngIf="alreadyDone">
+  <p>Thank you! You have already helped enough ;)</p>
 </div>

@@ -150,11 +150,12 @@ export class DiffSurveyComponent implements OnInit {
       }
     ]
   };
-
+  alreadyDone: boolean;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
+    this.alreadyDone = sessionStorage.getItem('surveySent') === 'true';
   }
   onSurveySaved(survey) {
     this.json = survey;
@@ -163,6 +164,7 @@ export class DiffSurveyComponent implements OnInit {
   sendData(result) {
     // TODO update with your own behavior
     this.dataService.survey(JSON.stringify(result));
+    sessionStorage.setItem('surveySent', 'true');
     console.log(JSON.stringify(result));
   }
 

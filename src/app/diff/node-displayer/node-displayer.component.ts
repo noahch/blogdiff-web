@@ -34,7 +34,7 @@ export class NodeDisplayerComponent implements OnInit {
   }
 
   getClassForLine(lineActions: LineAction[], lineNr: number): string {
-    if (lineActions !== undefined) {
+    if (lineActions !== undefined && lineActions !== null) {
       let lineAction: LineAction = lineActions.find(value => {
         return value.positionAfter === lineNr && value.type === LineActionType.ADD;
       });

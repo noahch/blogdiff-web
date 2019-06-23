@@ -73,6 +73,19 @@ export class DifferencingResult {
   deletions: number;
   moves: number;
   updates: number;
+  messageList: Message[];
+
+}
+
+export class Message {
+  message: string;
+  messageType: MessageType;
+}
+
+export enum MessageType {
+  INFO = 'INFO',
+  WARN = 'WARN',
+  ERROR = 'ERROR'
 }
 
 export class Settings {
