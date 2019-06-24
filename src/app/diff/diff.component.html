@@ -7,7 +7,7 @@
       <div class="col-4">
         <div class="custom-control custom-switch">
           <label class="app-h2 color-secondary custom-switch-fake-label">Manual mode</label>
-          <input [(ngModel)]="manual_mode" [disabled]="jobId_param === undefined" class="custom-control-input" id="modeSwitch" type="checkbox">
+          <input [(ngModel)]="manual_mode" [disabled]="jobs === undefined" class="custom-control-input" id="modeSwitch" type="checkbox">
           <label class="custom-control-label app-h2 color-secondary" for="modeSwitch"></label>
         </div>
       </div>
@@ -38,13 +38,13 @@
         <label class="app-h2 color-secondary">Repository Slug</label>
       </div>
       <div class="col-6">
-        <input [(ngModel)]="repoSlug" placeholder="username/repository" pattern="\w*\/\w*"/>
-        <div class="" *ngIf="showError">
-          Not a valid pattern.. try username/repository
+        <input [(ngModel)]="repoSlug" placeholder="username/repository" class="w-100" pattern="\w*\/\w*"/>
+        <div class="alert alert-danger rounded-0 mt-2" role="alert" *ngIf="showError">
+          {{errorMsg}}
         </div>
       </div>
       <div class="col-2">
-        <button (click)="diffManual()" class="btn btn-sm btn-primary background-primary self-bottom">Apply</button>
+        <button (click)="diffManual()" class="btn btn-sm btn-primary background-primary">Apply</button>
       </div>
     </div>
   </div>

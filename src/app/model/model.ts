@@ -113,6 +113,21 @@ export class ContactEmail {
   }
 }
 
+export class TrackingEvent {
+  userId: string;
+  repository: string;
+  logId1: string;
+  logId2: string;
+  timeSpent: number;
+  additions: boolean;
+  deletions: boolean;
+  updates: boolean;
+  moves: boolean;
+  highlight: boolean;
+  wrap: boolean;
+  hideNodes: boolean;
+  constructor() {}
+}
 
 export class Job {
   id: number;

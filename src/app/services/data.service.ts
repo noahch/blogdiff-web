@@ -11,7 +11,7 @@ import {
   LineActionType,
   MiniSurveyResult,
   NodeAction,
-  NodeActionType
+  NodeActionType, TrackingEvent
 } from '../model/model';
 import {environment} from '../../environments/environment';
 
@@ -46,5 +46,8 @@ export class DataService {
   }
   contactEmail(email: ContactEmail): void {
     this.httpClient.post(this.baseUrl + '/contact', email, {headers: this.headers}).subscribe();
+  }
+  saveTracking(tracking: TrackingEvent): void {
+    this.httpClient.post(this.baseUrl + '/tracking', tracking, {headers: this.headers}).subscribe();
   }
 }
