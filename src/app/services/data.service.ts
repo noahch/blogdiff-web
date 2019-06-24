@@ -1,7 +1,18 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {DifferencingResult, EditAction, EditTree, Job, LineAction, LineActionType, NodeAction, NodeActionType} from '../model/model';
+import {
+  ContactEmail,
+  DifferencingResult,
+  EditAction,
+  EditTree,
+  Job,
+  LineAction,
+  LineActionType,
+  MiniSurveyResult,
+  NodeAction,
+  NodeActionType
+} from '../model/model';
 import {environment} from '../../environments/environment';
 
 
@@ -30,5 +41,10 @@ export class DataService {
   survey(surveyResult: string): void {
     this.httpClient.post(this.baseUrl + '/survey', surveyResult, {headers: this.headers}).subscribe();
   }
-
+  miniSurvey(miniSurveyResult: MiniSurveyResult): void {
+    this.httpClient.post(this.baseUrl + '/miniSurvey', miniSurveyResult, {headers: this.headers}).subscribe();
+  }
+  contactEmail(email: ContactEmail): void {
+    this.httpClient.post(this.baseUrl + '/contact', email, {headers: this.headers}).subscribe();
+  }
 }

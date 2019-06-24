@@ -113,7 +113,7 @@ export class DiffComponent implements OnInit {
 
   containsErrors(): boolean {
     if (this.differencingResult !== undefined && this.differencingResult.messageList !== undefined && this.differencingResult.messageList !== null) {
-      if (this.differencingResult.messageList.filter(value => value.messageType === MessageType.ERROR).length > 0){
+      if (this.differencingResult.messageList.filter(value => value.messageType === MessageType.ERROR).length > 0) {
         return true;
       }
     }

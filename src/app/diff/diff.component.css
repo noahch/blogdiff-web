@@ -38,10 +38,16 @@
   right: 0px;
 }
 
+.statistics{
+  font-size: 12px;
+  background-color: #ADC2BF;
+  color: #FFFFFF;
+}
+
 .settings-panel {
   position: sticky;
   top: 0px;
   z-index: 1049;
   background-color: #FFFFFF;
-  border-bottom: 1px solid #90a19f;
+  /*border-bottom: 1px solid #90a19f;*/
 }

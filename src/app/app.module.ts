@@ -8,12 +8,14 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { NodeDisplayerComponent } from './diff/node-displayer/node-displayer.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {AppRouting} from './app.routing';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HeaderComponent } from './shared/header/header.component';
 import { LoadingScreenComponent } from './shared/loading-screen/loading-screen.component';
 import {SurveyComponent} from './shared/survey/survey.component';
 import { DiffSurveyComponent } from './diff-survey/diff-survey.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MiniSurveyComponent } from './mini-survey/mini-survey.component';
+import { HomeComponent } from './home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     HeaderComponent,
     SurveyComponent,
     LoadingScreenComponent,
-    DiffSurveyComponent
+    DiffSurveyComponent,
+    MiniSurveyComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     FontAwesomeModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [DataService
     // ,

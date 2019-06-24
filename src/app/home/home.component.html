@@ -1,0 +1,111 @@
+<div class="custom-container mono-font mb-5">
+  <div class="row my-5">
+    <div class="col-12 text-center">
+      <h1 class="custom-h1"><img src="../../assets/logo.png"/>BLogDiff</h1>
+      <hr class="custom-hr">
+      <h3>More Efficient <strong>B</strong>uild <strong>Log Diff</strong>erencing</h3>
+      <h3></h3>
+    </div>
+  </div>
+<div class="row mt-3">
+  <div class="col-12">
+    <h3 class="font-weight-bold">What is BLogDiff</h3>
+    <p>BLogDiff is a tool to compare build logs in a more efficient way.
+      The idea behind the project is simple: Sometimes it can be really hard to extract the failure cause out of a build log.
+      It could be a minor detail as a version change of a dependency or something too big to see. BLogDiff helps to highlight the differences
+      by loading the last successful build and comparing the current build towards it. To get an even more useful comparison, BLogDiff also removes artefacts that are not relevant (e.g. download speeds).</p>
+    <p><i>BLogDiff currently only supports Maven-Builds done with Travis-CI.</i></p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <h3 class="font-weight-bold">Download BLogDiff</h3>
+    <p>BLogDiff will be available in the Google Chrome Extension Store. As we are still in the development, the extension can be downloaded here.</p>
+    <a href="../../assets/download/chrome_ext.zip" download="blogdiff_extension.zip" class="btn btn-primary background-primary rounded-0">Download extension</a>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-12">
+    <h3 class="font-weight-bold">How to Install BLogDiff</h3>
+
+    <img src="../../assets/activate_extension.jpg" alt="activate extension"/>
+    <p>Follow these steps to install the extension:</p>
+    <ol>
+      <li>
+        Unzip the downloaded file
+      </li>
+      <li>
+        In your chrome browser, navigate to <i>chrome://extensions/</i>
+      </li>
+      <li>
+        Turn on the <i>developer mode</i> in the top right corner
+      </li>
+      <li>
+        Click <i>Load unpacked</i> and select the folder where you have extracted the extension
+      </li>
+      <li>
+        The extension is not activated
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <h3 class="font-weight-bold">How to Use BLogDiff</h3>
+    <img src="../../assets/active_extension.jpg" alt="active extension"/>
+    <p>Follow these steps to use the extension:</p>
+    <ol>
+      <li>
+        Go to <a href="https://travis-ci.org" target="_blank">Travis-CI.org</a> 
+      </li>
+      <li>
+        In all of your projects, you will find this icon <img src="../../assets/logo.png" height="20px"/>
+      </li>
+      <li>
+        Click on this icon and you will be redirected to the BLogDiff tool
+      </li>
+    </ol>
+    <p>You can find more detailed instructions <a routerLink="/instructions">here</a></p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <h3 class="font-weight-bold">General Information</h3>
+    <p>BLogDiff is developed at the University of Zurich and part of a bachelors' thesis. If you are interested in the outcome
+    of this thesis you can leave us your email here:</p>
+
+    <form [formGroup]="emailForm" (ngSubmit)="onSubmit()" *ngIf="!emailSubmitted">
+      <div class="row">
+      <div class="form-group col-8">
+        <input type="text"  placeholder="Enter email" formControlName="email" class="form-control rounded-0" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+          <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+        </div>
+      </div>
+      <div class="form-group col-4">
+        <button class="btn btn-primary background-primary rounded-0">Submit</button>
+      </div>
+      </div>
+    </form>
+    <div *ngIf="emailSubmitted">
+      <p>Thank you! You will be notified as soon as there are some news!</p>
+    </div>
+    <p>If you want to support this thesis, please consider taking part in our survey! </p>
+    <a routerLink="/survey" class="btn btn-primary background-primary mb-1 rounded-0">Take part in the survey!</a>
+    <p>We do track some Data! But don't worry. We only want to know how long you used the tool and whether you came back to it.</p>
+    <div *ngIf="currentTrackingEnabled">
+      <p>But you can also disable the tracking here:</p>
+      <button (click)="disableTracking()" class="btn btn-primary background-primary rounded-0">Disable tracking!</button>
+    </div>
+    <div *ngIf="!currentTrackingEnabled">
+      <p>You have currently disabled tracking. Please consider enabling tracking, so we have better data for our research:</p>
+    <button (click)="enableTracking()" class="btn btn-primary background-primary rounded-0">Enable tracking!</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+

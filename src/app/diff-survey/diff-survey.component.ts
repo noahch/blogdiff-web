@@ -11,144 +11,502 @@ export class DiffSurveyComponent implements OnInit {
   json = {
     'pages': [
       {
-        'name': 'survey',
+        'name': 'demographics',
         'elements': [
+          {
+            'type': 'text',
+            'name': 'age',
+            'title': 'How old are you?',
+            'validators': [
               {
-                'type': 'radiogroup',
-                'name': 'experience',
-                'title': 'How many years have you worked as software developer?',
-                'choices': [
-                  {
-                    'value': '1-3',
-                    'text': '1-3 years'
-                  },
-                  {
-                    'value': '3-6',
-                    'text': '3-6 years'
-                  },
-                  {
-                    'value': '6-9',
-                    'text': '6-9 years'
-                  },
-                  {
-                    'value': '9+',
-                    'text': '9+ years'
-                  }
-                ]
-              },
-              {
-                'type': 'radiogroup',
-                'name': 'number_of_people',
-                'title': 'How many people are working on your project?',
-                'choices': [
-                  {
-                    'value': 'alone',
-                    'text': 'I work alone'
-                  },
-                  {
-                    'value': '2-3',
-                    'text': '2-3 people'
-                  },
-                  {
-                    'value': '3-5',
-                    'text': '3-5 people'
-                  },
-                  {
-                    'value': '5-10',
-                    'text': '5-10 people'
-                  },
-                  {
-                    'value': '10+',
-                    'text': 'more than 10 people'
-                  }
-                ]
-              },
-              {
-                'type': 'radiogroup',
-                'name': 'failing_builds',
-                'title': 'How often do you have failing builds?',
-                'choices': [
-                  {
-                    'value': '2nd',
-                    'text': 'Every 2nd build'
-                  },
-                  {
-                    'value': '5th',
-                    'text': 'Every 5th build'
-                  },
-                  {
-                    'value': '10th',
-                    'text': 'Every 10th build'
-                  },
-                  {
-                    'value': 'never',
-                    'text': 'Almost never'
-                  }
-                ]
-              },
-              {
-                'type': 'radiogroup',
-                'name': 'how_long',
-                'title': 'How long does it usually take you to find the mistake when looking at the build log?',
-                'choices': [
-                  {
-                    'value': '1-2',
-                    'text': '1-2 min'
-                  },
-                  {
-                    'value': '2-5',
-                    'text': '2-5 min'
-                  },
-                  {
-                    'value': '5-10',
-                    'text': '5-10min'
-                  },
-                  {
-                    'value': '10+',
-                    'text': '10min+'
-                  }
-                ]
-              },
-
-              {
-                'type': 'rating',
-                'name': 'useful',
-                'title': 'Do you think a tool such as BlogDiff is useful in general? Please rate from 1 (very useful) - 6 (not useful at all).',
-                'rateMax': 6
-              },
-              {
-                'type': 'rating',
-                'name': 'integrate_workflow',
-                'title': 'Do you think a tool such as BlogDiff could be easyily inegrated in your daily workflow? Please rate from 1 (easy to integrate) - 6 (not easy to integrate at all).',
-                'rateMax': 6
-              },
-              {
-                'type': 'rating',
-                'name': 'find_faster',
-                'title': 'Did you find your failure cause faster than usual? Please rate from 1 (much faster than usual) - 6 (much longer than usual).',
-                'rateMax': 6
-              },
-              {
-                'type': 'rating',
-                'name': 'accuracy',
-                'title': 'Did you think the differencing was accurate and provided any additional value? Please rate from 1 (accurate) - 6 (not accurate).',
-                'rateMax': 6
-              },
-              {
-                'type': 'rating',
-                'name': 'use_again',
-                'title': 'Would you use the tool again or recommend it to someone else? Please rate from 1 (I totally would use it again) - 6 (I would never use this tool again).',
-                'rateMax': 6
-              },
-              {
-                'type': 'text',
-                'name': 'suggestions',
-                'title': 'Do you have any suggestions or comments on how to improve the tool?'
+                'type': 'numeric',
+                'text': 'Please enter a valid age',
+                'minValue': 12,
+                'maxValue': 99
               }
+            ],
+            'inputType': 'number'
+          },
+          {
+            'type': 'radiogroup',
+            'name': 'gender',
+            'title': 'Please select your gender',
+            'choices': [
+              {
+                'value': 'm',
+                'text': 'Male'
+              },
+              {
+                'value': 'f',
+                'text': 'Female'
+              },
+              {
+                'value': 'other',
+                'text': 'Other'
+              },
+              {
+                'value': 'none',
+                'text': 'I don\'t want to answer'
+              }
+            ]
+          },
+          {
+            'type': 'radiogroup',
+            'name': 'education',
+            'title': 'What is your highest level of education?',
+            'hasOther': true,
+            'choices': [
+              {
+                'value': 'high_school',
+                'text': 'High School'
+              },
+              {
+                'value': 'college',
+                'text': 'College'
+              },
+              {
+                'value': 'training',
+                'text': 'Trade/Technical/Vocational Training'
+              },
+              {
+                'value': 'bachelor',
+                'text': 'Bachelor\'s degree'
+              },
+              {
+                'value': 'master',
+                'text': 'Master\'s degree'
+              },
+              {
+                'value': 'doctorate',
+                'text': 'Doctorate Degree'
+              },
+              {
+                'value': 'professional',
+                'text': 'Professional Degree'
+              }
+            ]
+          },
+          {
+            'type': 'radiogroup',
+            'name': 'position',
+            'title': 'What is your current position within your company?',
+            'hasOther': true,
+            'choices': [
+              {
+                'value': 'employee',
+                'text': 'Employee'
+              },
+              {
+                'value': 'assistant_manager',
+                'text': 'Assistant Manager'
+              },
+              {
+                'value': 'manager',
+                'text': 'Manager'
+              },
+              {
+                'value': 'senior_manager',
+                'text': 'Senior Manager'
+              }
+            ]
+          },
+          {
+            'type': 'text',
+            'name': 'experience',
+            'title': 'How many years of experience do you have in a technological environment?',
+            'inputType': 'number'
+          },
+          {
+            'type': 'radiogroup',
+            'name': 'buildlogs_seen',
+            'title': 'How many build logs have you seen so far?',
+            'choices': [
+              {
+                'value': 'none',
+                'text': 'none'
+              },
+              {
+                'value': 'less10',
+                'text': 'less than 10'
+              },
+              {
+                'value': 'more10',
+                'text': 'more than 10'
+              }
+            ]
+          }
         ],
-        'description': 'This project is part of a bachelors\' thesis of the University of Zurich. It would be highly appreciated, if you could answer the questions of this survey!'
+        'title': 'About you',
+        'description': 'Please give us some information about you.'
+      },
+      {
+        'name': 'project',
+        'elements': [
+          {
+            'type': 'text',
+            'name': 'month_on_project',
+            'title': 'Since how many month are you working on your project?',
+            'inputType': 'number'
+          },
+          {
+            'type': 'text',
+            'name': 'people_on_project',
+            'title': 'How many people are working on your project?',
+            'inputType': 'number'
+          },
+          {
+            'type': 'radiogroup',
+            'name': 'role',
+            'title': 'What is your role within the project?',
+            'hasOther': true,
+            'choices': [
+              {
+                'value': 'junior_dev',
+                'text': 'Junior Developer'
+              },
+              {
+                'value': 'senior_dev',
+                'text': 'Senior Developer'
+              },
+              {
+                'value': 'architect',
+                'text': 'Software Architect'
+              },
+              {
+                'value': 'quality_assurance',
+                'text': 'Quality Assurance / Tester'
+              },
+              {
+                'value': 'product_owner',
+                'text': 'Product Owner'
+              },
+              {
+                'value': 'project_manager',
+                'text': 'Project Manager'
+              },
+              {
+                'value': 'technical_lead',
+                'text': 'Technical Lead'
+              },
+              {
+                'value': 'cto',
+                'text': 'CTO'
+              }
+            ]
+          },
+          {
+            'type': 'text',
+            'name': 'failing_builds',
+            'title': 'How often do you have failing builds (in percent)?',
+            'validators': [
+              {
+                'type': 'numeric',
+                'text': 'Please enter a valid value (0-100)',
+                'minValue': 0,
+                'maxValue': 100
+              }
+            ],
+            'inputType': 'number'
+          },
+          {
+            'type': 'text',
+            'name': 'time_to_find_failure',
+            'title': 'How long does it usually take you to find the failure cause when looking at the build log (in minutes)?',
+            'inputType': 'number'
+          }
+        ],
+        'title': 'About your project',
+        'description': 'Please give us some information about your project. If you do not have any project in mind, please answer the questions in general.'
+      },
+      {
+        'name': 'tool',
+        'elements': [
+          {
+            'type': 'rating',
+            'name': 'useful',
+            'title': 'Do you think a tool such as BLogDiff is useful in general?',
+            'rateValues': [
+              {
+                'value': 1,
+                'text': 'very useful'
+              },
+              {
+                'value': 2,
+                'text': 'useful'
+              },
+              {
+                'value': 3,
+                'text': 'neutral'
+              },
+              {
+                'value': 4,
+                'text': 'not useful'
+              },
+              {
+                'value': 5,
+                'text': 'not useful at all'
+              }
+            ]
+          },
+          {
+            'type': 'rating',
+            'name': 'easy_to_use',
+            'title': 'Do you think BLogDiff is easy to use?',
+            'rateValues': [
+              {
+                'value': 1,
+                'text': 'very easy'
+              },
+              {
+                'value': 2,
+                'text': 'easy'
+              },
+              {
+                'value': 3,
+                'text': 'neutral'
+              },
+              {
+                'value': 4,
+                'text': 'not easy'
+              },
+              {
+                'value': 5,
+                'text': 'not easy at all'
+              }
+            ]
+          },
+          {
+            'type': 'rating',
+            'name': 'filtering_noise',
+            'title': 'Do you think filtering noise (e.g. download speeds, timestamps, etc.) is useful?',
+            'rateValues': [
+              {
+                'value': 1,
+                'text': 'very useful'
+              },
+              {
+                'value': 2,
+                'text': 'useful'
+              },
+              {
+                'value': 3,
+                'text': 'neutral'
+              },
+              {
+                'value': 4,
+                'text': 'not useful'
+              },
+              {
+                'value': 5,
+                'text': 'not useful at all'
+              }
+            ]
+          },
+          {
+            'type': 'rating',
+            'name': 'integation',
+            'title': 'Do you think a tool such as BLogDiff could be easily inegrated in your daily workflow?',
+            'rateValues': [
+              {
+                'value': 1,
+                'text': 'very easily'
+              },
+              {
+                'value': 2,
+                'text': 'easily'
+              },
+              {
+                'value': 3,
+                'text': 'neutral'
+              },
+              {
+                'value': 4,
+                'text': 'not easily'
+              },
+              {
+                'value': 5,
+                'text': 'not easily at all'
+              }
+            ]
+          },
+          {
+            'type': 'rating',
+            'name': 'find_faster',
+            'title': 'Did you find your failure cause faster than usual?',
+            'rateValues': [
+              {
+                'value': 1,
+                'text': 'much faster'
+              },
+              {
+                'value': 2,
+                'text': 'a little faster'
+              },
+              {
+                'value': 3,
+                'text': 'as long as usual'
+              },
+              {
+                'value': 4,
+                'text': 'a little slower'
+              },
+              {
+                'value': 5,
+                'text': 'much slower'
+              }
+            ]
+          },
+          {
+            'type': 'rating',
+            'name': 'accuracy',
+            'title': 'Do you think the differencing was accurate?',
+            'rateValues': [
+              {
+                'value': 1,
+                'text': 'very accurate'
+              },
+              {
+                'value': 2,
+                'text': 'accurate'
+              },
+              {
+                'value': 3,
+                'text': 'neutral'
+              },
+              {
+                'value': 4,
+                'text': 'not accurate'
+              },
+              {
+                'value': 5,
+                'text': 'not accurate at all'
+              }
+            ]
+          },
+          {
+            'type': 'rating',
+            'name': 'advantage',
+            'title': 'Do you think BLogDiff provides an advantage compared to looking at a plain build log?',
+            'rateValues': [
+              {
+                'value': 1,
+                'text': 'big advantage'
+              },
+              {
+                'value': 2,
+                'text': 'small advantage'
+              },
+              {
+                'value': 3,
+                'text': 'no advantage/no disadvantage'
+              },
+              {
+                'value': 4,
+                'text': 'small disadvantage'
+              },
+              {
+                'value': 5,
+                'text': 'big disadvantage'
+              }
+            ]
+          },
+          {
+            'type': 'rating',
+            'name': 'use_again',
+            'title': 'How likely are you to use the BLogDiff again?',
+            'rateValues': [
+              {
+                'value': 1,
+                'text': 'very likely'
+              },
+              {
+                'value': 2,
+                'text': 'likely'
+              },
+              {
+                'value': 3,
+                'text': 'neutral'
+              },
+              {
+                'value': 4,
+                'text': 'not likely'
+              },
+              {
+                'value': 5,
+                'text': 'not likely at all'
+              }
+            ]
+          },
+          {
+            'type': 'rating',
+            'name': 'recommend',
+            'title': 'How likely are you to recommend BLogDiff to a friend?',
+            'rateValues': [
+              {
+                'value': 1,
+                'text': 'very likely'
+              },
+              {
+                'value': 2,
+                'text': 'likely'
+              },
+              {
+                'value': 3,
+                'text': 'neutral'
+              },
+              {
+                'value': 4,
+                'text': 'not likely'
+              },
+              {
+                'value': 5,
+                'text': 'not likely at all'
+              }
+            ]
+          },
+          {
+            'type': 'text',
+            'name': 'suggestion',
+            'title': 'Do you have any suggestions on how to improve BLogDiff?'
+          },
+          {
+            'type': 'text',
+            'name': 'comment',
+            'title': 'Do you have any other comments?'
+          },
+          {
+            'type': 'radiogroup',
+            'name': 'contact_again',
+            'title': 'May we contact you in case we have any further questions? ',
+            'choices': [
+              {
+                'value': 'yes',
+                'text': 'yes'
+              },
+              {
+                'value': 'no',
+                'text': 'no'
+              }
+            ]
+          },
+          {
+            'type': 'text',
+            'name': 'email',
+            'visibleIf': '{contact_again} = \'yes\'',
+            'title': 'Your email address?',
+            'validators': [
+              {
+                'type': 'email'
+              }
+            ],
+            'inputType': 'email'
+          }
+        ],
+        'title': 'About BLogDiff',
+        'description': 'Tell us what you think about BLogDiff.'
       }
-    ]
+    ],
+    'showProgressBar': 'top'
   };
   alreadyDone: boolean;
 

@@ -43,3 +43,7 @@ body{
 .btn-sm{
   border-radius: 0px !important;
 }
+
+.mono-font{
+  font-family: "Courier New", Courier, monospace !important;
+}

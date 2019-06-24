@@ -5,8 +5,12 @@ import {RouterModule, Routes} from '@angular/router';
 import {DiffComponent} from './diff/diff.component';
 import {NgModule} from '@angular/core';
 import {DiffSurveyComponent} from './diff-survey/diff-survey.component';
+import {HomeComponent} from './home/home.component';
 
 const appRoutes: Routes = [
+  { path: '',
+    component: HomeComponent
+  },
   { path: 'differencing',
     component: DiffComponent
   },

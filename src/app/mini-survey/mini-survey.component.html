@@ -1,0 +1,15 @@
+<div class="card mini-survey" *ngIf="visible">
+  <div class="card-body">
+    <h5 class="card-title">Please help us!</h5>
+    <div *ngIf="!surveySubmitted">
+      <p class="card-text">Would you recommend this tool or use it again?</p>
+      <button class="btn btn-sm btn-primary background-primary m-1" (click)="submitSurvey(true)">Yes</button>
+      <button class="btn btn-sm btn-primary background-primary m-1" (click)="submitSurvey(false)">No</button>
+    </div>
+    <div *ngIf="surveySubmitted">
+      <p class="card-text">Thank you for helping us! It would be even greater, if you could spare a few minutes to take part in a bigger survey!</p>
+      <button class="btn btn-sm btn-primary background-primary m-1" routerLink="/survey">Sure! I will help you.</button>
+      <button class="btn btn-sm btn-primary background-primary m-1" (click)="visible = false;">Sorry, not interested.</button>
+    </div>
+  </div>
+</div>

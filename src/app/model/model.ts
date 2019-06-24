@@ -92,12 +92,27 @@ export class Settings {
   showAdditions = true;
   showDeletions = true;
   showUpdates = true;
-  showMoves = true;
+  showMoves = false;
   wrapLines = true;
   differencer: string;
   highlightMove = true;
   constructor() {}
 }
+
+export class MiniSurveyResult {
+  useAgain: boolean;
+  constructor (useAgain: boolean) {
+    this.useAgain = useAgain;
+  }
+}
+
+export class ContactEmail {
+  email: string;
+  constructor (email: string) {
+    this.email = email;
+  }
+}
+
 
 export class Job {
   id: number;

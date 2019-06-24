@@ -1,4 +1,4 @@
-<div class="row mb-3 py-3 settings-panel">
+<div class="row mb-3 pt-3 settings-panel">
   <div class="col-6">
     <div class="row">
       <div class="col-8">
@@ -113,9 +113,31 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-12">
+            <button (click)="toTop()" class="btn btn-sm btn-primary background-primary">Scroll to top</button>
+          </div>
+        </div>
       </div>
 <!--      <div class="col-2"> <button class="btn btn-sm btn-primary background-primary self-bottom" (click)="newSettings()">Apply</button></div>-->
     </div>
+  </div>
+  <div class="col-12" *ngIf="differencingResult !== undefined">
+    <div class="row m-0 statistics">
+      <div class="col-3">
+        Additions: {{differencingResult.additions}}
+      </div>
+      <div class="col-3">
+        Deletions: {{differencingResult.deletions}}
+      </div>
+      <div class="col-3">
+        Updates: {{differencingResult.updates}}
+      </div>
+      <div class="col-3">
+        Moves: {{differencingResult.moves}}
+      </div>
+    </div>
+
   </div>
 
 
@@ -123,9 +145,12 @@
 
 
 <div class="row" *ngIf="differencingResult?.messageList?.length > 0">
-  <div class="col-12 alert alert-danger" role="alert" *ngFor="let message of differencingResult.messageList">
-    {{message.message}}
+  <div class="col-12">
+    <div class="alert alert-danger rounded-0" role="alert" *ngFor="let message of differencingResult.messageList">
+      {{message.message}}
+    </div>
   </div>
+
 </div>
 <div *ngIf="!containsErrors()">
 
@@ -162,27 +187,5 @@
   </div>
 </div>
 
-<div class="stats background-primary color-white py-1 pl-2"  *ngIf="differencingResult !== undefined">
-  <div class="row">
-    <div class="col-8">Additions:</div>
-    <div class="col-4">{{differencingResult.additions}}</div>
-  </div>
-  <div class="row">
-    <div class="col-8">Deletions:</div>
-    <div class="col-4">{{differencingResult.deletions}}</div>
-  </div>
-  <div class="row">
-    <div class="col-8">Updates:</div>
-    <div class="col-4">{{differencingResult.updates}}</div>
-  </div>
-  <div class="row">
-    <div class="col-8">Moves:</div>
-    <div class="col-4">{{differencingResult.moves}}</div>
-  </div>
-  <div class="row">
-    <div class="col-12 float-right">
-      <button (click)="toTop()" class="btn btn-sm background-secondary">Back to Top</button>
-    </div>
-  </div>
-</div>
+  <app-mini-survey></app-mini-survey>
 </div>

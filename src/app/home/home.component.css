@@ -1,0 +1,23 @@
+.custom-container{
+  max-width: 700px;
+  margin: auto;
+  text-align: justify;
+}
+
+.custom-h1{
+  font-size: 5rem;
+  font-weight: 600;
+}
+
+.custom-h1 img{
+  height: 60px;
+  margin-right: 20px;
+}
+
+.custom-hr{
+  max-width: 100px;
+  margin: 15px auto;
+  border-width: 4px;
+  border-color: inherit;
+  border-radius: 3px;
+}
