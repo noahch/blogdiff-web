@@ -58,9 +58,9 @@ export class NodeAction {
 }
 
 export enum NodeActionType {
-  ADD,
-  MOVE,
-  DELETE
+  ADD = 'ADD',
+  MOVE = 'MOVE',
+  DELETE = 'DELETE'
 }
 
 export class DifferencingResult {
@@ -96,6 +96,8 @@ export class Settings {
   wrapLines = true;
   differencer: string;
   highlightMove = true;
+  differencesOnly = false;
+  symmetricNodes = false;
   constructor() {}
 }
 
@@ -125,7 +127,8 @@ export class TrackingEvent {
   moves: boolean;
   highlight: boolean;
   wrap: boolean;
-  hideNodes: boolean;
+  symmetricNodes: boolean;
+  differencesOnly: boolean;
   constructor() {}
 }
 
@@ -133,4 +136,5 @@ export class Job {
   id: number;
   number: string;
   finished_at: string;
+  state: string;
 }

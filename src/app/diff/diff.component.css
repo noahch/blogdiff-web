@@ -51,3 +51,15 @@
   background-color: #FFFFFF;
   /*border-bottom: 1px solid #90a19f;*/
 }
+
+.state-passed{
+  border-left: 4px solid #39aa56;
+}
+
+.state-errored, .state-failed{
+  border-left: 4px solid #db4545;
+}
+
+.state-canceled{
+  border-left: 4px solid #9d9d9d;
+}

@@ -1,5 +1,5 @@
-<div [class.collapsed-node]="buildLogNode.displayed" class="node" *ngIf="buildLogNode !== undefined">
-<div class="node-collapser" (click)="buildLogNode.displayed = !buildLogNode.displayed">
+<div [class.collapsed-node]="buildLogNode.displayed" [class.node]="!settings.differencesOnly && settings.wrapLines" [class.d-flex]="!settings.wrapLines" *ngIf="buildLogNode !== undefined">
+<div class="node-collapser" (click)="buildLogNode.displayed = !buildLogNode.displayed" *ngIf="!settings.differencesOnly">
   <fa-icon *ngIf="buildLogNode.displayed" [icon]="['fas', 'plus-square']"></fa-icon>
   <fa-icon *ngIf="!buildLogNode.displayed"[icon]="['fas', 'minus-square']"></fa-icon>
 </div>

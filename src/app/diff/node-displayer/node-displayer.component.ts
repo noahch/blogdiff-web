@@ -40,7 +40,9 @@ export class NodeDisplayerComponent implements OnInit {
       });
       if (lineAction !== undefined) {
         if (!this.leftNode) {
-          return this.settings.showAdditions ? 'add' : '';
+          if (this.settings.showAdditions) {
+            return 'add';
+          }
         }
       }
       lineAction = lineActions.find(value => {
@@ -48,14 +50,18 @@ export class NodeDisplayerComponent implements OnInit {
       });
       if (lineAction !== undefined) {
         if (this.leftNode) {
-          return this.settings.showDeletions ? 'delete' : '';
+          if (this.settings.showDeletions) {
+            return 'delete';
+          }
         }
       }
       lineAction = lineActions.find(value => {
         return value.positionBefore === lineNr && value.positionAfter === lineNr && value.type === LineActionType.UPDATE;
       });
       if (lineAction !== undefined) {
-        return this.settings.showUpdates ? 'update' : '';
+        if (this.settings.showUpdates) {
+          return 'update';
+        }
       }
       lineAction = lineActions.find(value => {
         return ((value.positionBefore === lineNr && this.leftNode ) || ( value.positionAfter === lineNr && !this.leftNode)) && value.type === LineActionType.MOVE;
@@ -64,6 +70,9 @@ export class NodeDisplayerComponent implements OnInit {
         if (this.settings.showMoves) {
           return 'move' + ' ' + 'm' + lineAction.positionBefore + '_' + lineAction.positionAfter;
         }
+      }
+      if (this.settings.differencesOnly) {
+        return 'none';
       }
       return '';
     }
@@ -79,11 +88,24 @@ export class NodeDisplayerComponent implements OnInit {
         return value.nodeName === nodename;
       });
       if (nodeAction !== undefined) {
+        console.log('here');
+        console.log(nodeAction);
+        console.log(nodeAction.type === NodeActionType.ADD);
+
         if (nodeAction.type === NodeActionType.ADD && !this.leftNode && this.settings.showAdditions) {
-          return 'add-node';
+
+          if (!this.settings.symmetricNodes) {
+            return 'add-node';
+          } else {
+            return 'none';
+          }
         }
         if (nodeAction.type === NodeActionType.DELETE && this.leftNode && this.settings.showDeletions) {
-          return 'delete-node';
+          if (!this.settings.symmetricNodes) {
+            return 'delete-node';
+          } else {
+            return 'none';
+          }
         }
         if (nodeAction.type === NodeActionType.MOVE && this.settings.showMoves) {
           return 'move-node';

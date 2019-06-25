@@ -4,7 +4,7 @@ import {BuildLogNode, BuildLogTree, DifferencingResult, EditAction, Job, Message
 import {ActivatedRoute} from '@angular/router';
 import {LoadingService} from '../services/loading.service';
 import {Validators} from '@angular/forms';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
 import {DiffSurveyComponent} from '../diff-survey/diff-survey.component';
 import {TrackingService} from '../services/tracking.service';
 
@@ -35,7 +35,12 @@ export class DiffComponent implements OnInit {
   jobs: Job[];
 
 
-  constructor(private dataService: DataService, private route: ActivatedRoute, public loadingService: LoadingService, private trackingService: TrackingService) {
+  constructor(private dataService: DataService,
+              private route: ActivatedRoute,
+              public loadingService: LoadingService,
+              private trackingService: TrackingService,
+              private tooltips: NgbTooltipConfig) {
+    tooltips.container = 'body';
     this.route.queryParams.subscribe(params => {
       this.jobId_param = params['jobId'];
       this.userId_param = params['userId'];
@@ -113,14 +118,35 @@ export class DiffComponent implements OnInit {
     }
   }
 
+  diffMultiManual() {
+    const key = this.selectedLog1 + '.' + this.selectedLog2;
+    if (sessionStorage.getItem(key) !== null) {
+      this.differencingResult = JSON.parse(sessionStorage.getItem(key));
+    } else {
+      this.loadingService.startLoading();
+      this.dataService.differencingMultiManual(this.selectedLog1, this.selectedLog2).subscribe(value => {
+        this.differencingResult = value;
+        try {
+          sessionStorage.setItem(key, JSON.stringify(this.differencingResult));
+        } catch (e) {
+          console.log('Local storage is full...');
+        }
+        console.log(this.differencingResult);
+        this.loadingService.stopLoading();
+        this.setTrackingEvent();
+      });
+    }
+  }
+
   diffManual() {
-    if (this.repoSlug.match('^\\w*\\/\\w*$') !== null) {
+    if (this.repoSlug.match('^\\w*\\/[a-zA-Z0-9-]*$') !== null) {
       this.showError = false;
       this.loadingService.startLoading();
       const repoSplit = this.repoSlug.split('/');
       this.dataService.getJobsForRepo(repoSplit[0], repoSplit[1]).subscribe(value => {
         if (value !== null) {
           this.jobs = value;
+          this.differencingResult = undefined;
           this.manual_mode = false;
         } else {
           this.errorMsg = 'Not a valid repository or jobs could not be loaded.';
@@ -134,8 +160,22 @@ export class DiffComponent implements OnInit {
       this.showError = true;
     }
     return;
+  }
 
-
+  diffManualLogs() {
+    this.showError = false;
+    this.loadingService.startLoading();
+    this.dataService.differencingMulti(this.selectedLog1, this.selectedLog2).subscribe(value => {
+      if (value !== null) {
+        this.differencingResult = value;
+        this.manual_mode = false;
+      } else {
+        this.errorMsg = 'Not a valid repository or jobs could not be loaded.';
+        this.showError = true;
+      }
+      console.log(value);
+      this.loadingService.stopLoading();
+    });
   }
 
   containsErrors(): boolean {
@@ -168,6 +208,8 @@ export class DiffComponent implements OnInit {
     trackingEvent.updates =  this.settings.showUpdates;
     trackingEvent.highlight = this.settings.highlightMove;
     trackingEvent.wrap = this.settings.wrapLines;
+    trackingEvent.differencesOnly = this.settings.differencesOnly;
+    trackingEvent.symmetricNodes = this.settings.symmetricNodes;
   }
 
   getRandomToken(): string {
