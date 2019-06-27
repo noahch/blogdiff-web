@@ -28,6 +28,10 @@
   margin-top: -10px;
 }
 
+.line-nr{
+  margin-right: 5px;
+}
+
 .collapsed-node .node-content{
   display: none;
 }

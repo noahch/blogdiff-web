@@ -38,6 +38,11 @@
   right: 0px;
 }
 
+.bottom-right-with-p{
+  position: absolute;
+  bottom: 0px;
+  right: 15px;
+}
 .statistics{
   font-size: 12px;
   background-color: #ADC2BF;

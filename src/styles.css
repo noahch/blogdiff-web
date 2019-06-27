@@ -24,13 +24,17 @@ body{
 .color-white{
   color: #FFFFFF !important;
 }
-
 .app-h1{
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.app-h3{
   font-size: 18px;
   font-weight: normal;
 }
 
-.app-h2{
+.app-h4{
   font-size: 15px;
   font-weight: normal;
 }
@@ -46,4 +50,9 @@ body{
 
 .mono-font{
   font-family: "Courier New", Courier, monospace !important;
+}
+
+.detail-highlight{
+  color: #d45900 !important;
+  font-weight: bold;
 }

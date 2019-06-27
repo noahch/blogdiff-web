@@ -31,6 +31,18 @@ export class NodeDisplayerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (!this.leftNode) {
+      this.editAction.linesBeforeActions.forEach(value => {
+        if (value.type === LineActionType.UPDATE) {
+          const line = this.buildLogNode.linesBefore.find(value1 => {
+            return value1.internalLineIndex === value.positionAfter && value1.internalLineIndex === value.positionBefore;
+          });
+          if (line !== undefined) {
+            line.content = this.highlightString(value.contentAfter, value.contentBefore);
+          }
+        }
+      });
+    }
   }
 
   getClassForLine(lineActions: LineAction[], lineNr: number): string {
@@ -88,10 +100,6 @@ export class NodeDisplayerComponent implements OnInit {
         return value.nodeName === nodename;
       });
       if (nodeAction !== undefined) {
-        console.log('here');
-        console.log(nodeAction);
-        console.log(nodeAction.type === NodeActionType.ADD);
-
         if (nodeAction.type === NodeActionType.ADD && !this.leftNode && this.settings.showAdditions) {
 
           if (!this.settings.symmetricNodes) {
@@ -140,6 +148,18 @@ export class NodeDisplayerComponent implements OnInit {
     for (const l of lines) {
       l.classList.remove('move-highlighted');
     }
+  }
+
+   highlightString (afterText: string, beforeText: string): string {
+    let text = '';
+     afterText.split('').forEach(function(val, i) {
+      if (val !== beforeText.charAt(i)) {
+        text += '<span class="detail-highlight">' + val + '</span>';
+      } else {
+        text += val;
+      }
+    });
+    return text;
   }
 
 }

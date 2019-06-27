@@ -16,6 +16,8 @@ import { DiffSurveyComponent } from './diff-survey/diff-survey.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { MiniSurveyComponent } from './mini-survey/mini-survey.component';
 import { HomeComponent } from './home/home.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { BugreportComponent } from './shared/bugreport/bugreport.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,9 @@ import { HomeComponent } from './home/home.component';
     LoadingScreenComponent,
     DiffSurveyComponent,
     MiniSurveyComponent,
-    HomeComponent
+    HomeComponent,
+    PrivacyComponent,
+    BugreportComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +41,7 @@ import { HomeComponent } from './home/home.component';
     NgbModule,
     ReactiveFormsModule
   ],
+  entryComponents: [BugreportComponent],
   providers: [DataService
     // ,
     // {

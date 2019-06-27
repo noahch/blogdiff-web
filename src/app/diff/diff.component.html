@@ -2,20 +2,20 @@
   <div class="col-6 mb-1">
     <div class="row">
       <div class="col-8">
-        <h1 class="app-h1 color-primary">Build Log Selection:</h1>
+        <h1 class="app-h3 color-primary">Build Log Selection:</h1>
       </div>
       <div class="col-4">
-        <div class="custom-control custom-switch">
-          <label class="app-h2 color-secondary custom-switch-fake-label" ngbTooltip="Switch to manual input mode">Manual mode</label>
+        <div class="custom-control custom-switch float-right">
+          <label class="app-h4 color-secondary custom-switch-fake-label" ngbTooltip="Switch to manual input mode">Manual mode</label>
           <input [(ngModel)]="manual_mode" [disabled]="jobs === undefined" class="custom-control-input" id="modeSwitch" type="checkbox">
-          <label class="custom-control-label app-h2 color-secondary" for="modeSwitch"></label>
+          <label class="custom-control-label app-h4 color-secondary" for="modeSwitch"></label>
         </div>
       </div>
     </div>
 
     <div *ngIf="!manual_mode" class="row">
       <div class="col-5">
-        <h2 class="app-h2 color-secondary">Select Log 1:</h2>
+        <h2 class="app-h4 color-secondary">Select Log 1:</h2>
         <select [(ngModel)]="selectedLog1" class="app-select" size="5">
           <option *ngFor="let job of jobs;" [value]="job.id" [class]="'state-'+job.state">
             #{{job.number}} | {{job.id}} | {{job.finished_at | date:'shortDate'}}</option>
@@ -23,19 +23,19 @@
 
       </div>
       <div class="col-5">
-        <h2 class="app-h2 color-secondary">Select Log 2:</h2>
+        <h2 class="app-h4 color-secondary">Select Log 2:</h2>
         <select [(ngModel)]="selectedLog2" class="app-select" size="5">
           <option *ngFor="let job of jobs;" [value]="job.id" [class]="'state-'+job.state">
             #{{job.number}} | {{job.id}} | {{job.finished_at | date:'shortDate'}}</option>
         </select>
       </div>
       <div class="col-2">
-        <button (click)="diffMulti()" class="btn btn-sm btn-primary background-primary self-bottom">Apply</button>
+        <button (click)="diffMulti()" [disabled]="selectedLog1 === undefined || selectedLog2 === undefined" class="btn btn-sm btn-primary background-primary self-bottom">Apply</button>
       </div>
     </div>
     <div *ngIf="manual_mode" class="row">
       <div class="col-4">
-        <label class="app-h2 color-secondary" ngbTooltip="Enter the repository identifier">Repository Slug</label>
+        <label class="app-h4 color-secondary" ngbTooltip="Enter the repository identifier">Repository Slug</label>
       </div>
       <div class="col-6">
         <input [(ngModel)]="repoSlug" placeholder="username/repository" class="form-control form-control-sm rounded-0 w-100" pattern="\w*\/\w*"/>
@@ -44,112 +44,119 @@
         </div>
       </div>
       <div class="col-2">
-        <button (click)="diffManual()" class="btn btn-sm btn-primary background-primary">Apply</button>
+        <button (click)="diffManual()" [disabled]="repoSlug!== undefined && repoSlug.length < 3" class="btn btn-sm btn-primary background-primary float-right">Apply</button>
       </div>
     </div>
     <div *ngIf="manual_mode" class="row mt-1">
+      <div class="col-5"><hr></div>
+      <div class="col-2 text-center"><span class="app-h4 color-secondary">OR</span></div>
+      <div class="col-5"><hr></div>
+    </div>
+    <div *ngIf="manual_mode" class="row mt-1">
       <div class="col-4">
-        <label class="app-h2 color-secondary"  ngbTooltip="Enter two job IDs. They need to be from the same repository">Jobs</label>
+        <label class="app-h4 color-secondary" ngbTooltip="Enter two job IDs. They need to be from the same repository">Jobs</label>
       </div>
       <div class="col-6">
         <input [(ngModel)]="selectedLog1" placeholder="Job ID before" class="form-control form-control-sm d-inline-block rounded-0 w-50" type="number"/>
         <input [(ngModel)]="selectedLog2" placeholder="Job ID after" class="form-control form-control-sm d-inline-block rounded-0 w-50" type="number"/>
       </div>
       <div class="col-2">
-        <button (click)="diffMultiManual()" class="btn btn-sm btn-primary background-primary">Apply</button>
+        <button (click)="diffMultiManual()" [disabled]="selectedLog1 === undefined || selectedLog2 === undefined" class="btn btn-sm btn-primary background-primary float-right">Apply</button>
       </div>
     </div>
   </div>
   <div class="col-6 mb-1">
     <div class="row">
       <div class="col-12">
-        <h1 class="app-h1 color-primary">Settings:</h1>
+        <h1 class="app-h3 color-primary">Settings:</h1>
       </div>
     </div>
     <div class="row">
       <div class="col-5">
         <div class="row">
-          <div class="col-8">  <label class="app-h2 color-secondary" ngbTooltip="Show added lines or nodes">Show Additions</label></div>
+          <div class="col-8">  <label class="app-h4 color-secondary" ngbTooltip="Show added lines or nodes">Show Additions</label></div>
           <div class="col-4">
             <div class="custom-control custom-switch">
               <input [(ngModel)]="settings.showAdditions" class="custom-control-input" id="addSwitch" type="checkbox">
-              <label class="custom-control-label app-h2 color-secondary" for="addSwitch"></label>
+              <label class="custom-control-label app-h4 color-secondary" for="addSwitch"></label>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-8">
-            <label class="app-h2 color-secondary" ngbTooltip="Show deleted lines or nodes">Show Deletions</label>
+            <label class="app-h4 color-secondary" ngbTooltip="Show deleted lines or nodes">Show Deletions</label>
           </div>
           <div class="col-4">
             <div class="custom-control custom-switch">
             <input [(ngModel)]="settings.showDeletions" class="custom-control-input" id="deleteSwitch" type="checkbox">
-            <label class="custom-control-label app-h2 color-secondary" for="deleteSwitch"></label>
+            <label class="custom-control-label app-h4 color-secondary" for="deleteSwitch"></label>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-8">
-            <label class="app-h2 color-secondary" ngbTooltip="Show updated lines">Show Updates</label>
+            <label class="app-h4 color-secondary" ngbTooltip="Show updated lines">Show Updates</label>
           </div>
           <div class="col-4">
             <div class="custom-control custom-switch">
             <input [(ngModel)]="settings.showUpdates" class="custom-control-input" id="updateSwitch" type="checkbox">
-            <label class="custom-control-label app-h2 color-secondary" for="updateSwitch"></label>
+            <label class="custom-control-label app-h4 color-secondary" for="updateSwitch"></label>
           </div></div>
         </div>
         <div class="row">
           <div class="col-8">
-            <label class="app-h2 color-secondary" ngbTooltip="Show moved lines or nodes">Show Moves</label>
+            <label class="app-h4 color-secondary" ngbTooltip="Show moved lines or nodes">Show Moves</label>
           </div>
           <div class="col-4">
             <div class="custom-control custom-switch">
              <input [(ngModel)]="settings.showMoves" class="custom-control-input" id="moveSwitch" type="checkbox">
-             <label class="custom-control-label app-h2 color-secondary" for="moveSwitch"></label>
+             <label class="custom-control-label app-h4 color-secondary" for="moveSwitch"></label>
             </div>
           </div>
         </div>
       </div>
       <div class="col-5">
         <div class="row">
-          <div class="col-8"><label class="app-h2 color-secondary" ngbTooltip="Moved lines are highlighted when clicked on">Highlight Moves</label></div>
+          <div class="col-8"><label class="app-h4 color-secondary" ngbTooltip="Moved lines are highlighted when clicked on">Highlight Moves</label></div>
           <div class="col-4">
             <div class="custom-control custom-switch">
               <input [(ngModel)]="settings.highlightMove" class="custom-control-input" id="highlightSwitch" type="checkbox">
-              <label class="custom-control-label app-h2 color-secondary" for="highlightSwitch"></label>
+              <label class="custom-control-label app-h4 color-secondary" for="highlightSwitch"></label>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-8"><label class="app-h2 color-secondary" ngbTooltip="Wrap the log lines">Wrap Lines</label></div>
+          <div class="col-8"><label class="app-h4 color-secondary" ngbTooltip="Wrap the log lines">Wrap Lines</label></div>
           <div class="col-4">
             <div class="custom-control custom-switch">
               <input [(ngModel)]="settings.wrapLines" class="custom-control-input" id="wrapSwitch" type="checkbox">
-              <label class="custom-control-label app-h2 color-secondary" for="wrapSwitch"></label>
+              <label class="custom-control-label app-h4 color-secondary" for="wrapSwitch"></label>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-8"><label class="app-h2 color-secondary" ngbTooltip="Only show lines with differences">Differences Only</label></div>
+          <div class="col-8"><label class="app-h4 color-secondary" ngbTooltip="Only show lines with differences">Differences Only</label></div>
           <div class="col-4">
             <div class="custom-control custom-switch">
               <input [(ngModel)]="settings.differencesOnly" class="custom-control-input" id="diffOnlySwitch" type="checkbox">
-              <label class="custom-control-label app-h2 color-secondary" for="diffOnlySwitch"></label>
+              <label class="custom-control-label app-h4 color-secondary" for="diffOnlySwitch"></label>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-8"><label class="app-h2 color-secondary" ngbTooltip="Only show nodes that are available in both build logs.">Symmetric Nodes</label></div>
+          <div class="col-8"><label class="app-h4 color-secondary" ngbTooltip="Only show nodes that are available in both build logs.">Symmetric Nodes</label></div>
           <div class="col-4">
             <div class="custom-control custom-switch">
               <input [(ngModel)]="settings.symmetricNodes" class="custom-control-input" id="symmetricNodes" type="checkbox">
-              <label class="custom-control-label app-h2 color-secondary" for="symmetricNodes"></label>
+              <label class="custom-control-label app-h4 color-secondary" for="symmetricNodes"></label>
             </div>
           </div>
         </div>
       </div>
         <div class="col-2">
-          <button (click)="toTop()" class="btn btn-sm btn-primary background-primary self-bottom">To Top</button>
+
+          <button (click)="reportBug()" class="btn btn-sm btn-primary background-primary float-right">Report Bug</button>
+          <button (click)="toTop()" class="btn btn-sm btn-primary background-primary bottom-right-with-p">To Top</button>
         </div>
       <!--      <div class="col-2"> <button class="btn btn-sm btn-primary background-primary self-bottom" (click)="newSettings()">Apply</button></div>-->
     </div>
@@ -189,7 +196,7 @@
 
 <div class="row mt-3" *ngIf="differencingResult !== undefined">
   <div class="col-12">
-    <h1 class="app-h1 color-primary">Difference:</h1>
+    <h1 class="app-h3 color-primary">Difference:</h1>
   </div>
 </div>
 <div *ngIf="differencingResult !== undefined" class="row">

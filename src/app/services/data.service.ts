@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {
+  BugReport,
   ContactEmail,
   DifferencingResult,
   EditAction,
@@ -51,5 +52,8 @@ export class DataService {
   }
   saveTracking(tracking: TrackingEvent): void {
     this.httpClient.post(this.baseUrl + '/tracking', tracking, {headers: this.headers}).subscribe();
+  }
+  saveBug(bug: BugReport): void {
+    this.httpClient.post(this.baseUrl + '/bug', bug, {headers: this.headers}).subscribe();
   }
 }

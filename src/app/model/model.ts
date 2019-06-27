@@ -66,6 +66,7 @@ export enum NodeActionType {
 export class DifferencingResult {
   jobIdBefore: string;
   jobIdAfter: string;
+  repoSlug: string;
   treeBefore: BuildLogTree;
   treeAfter: BuildLogTree;
   editTree: EditTree;
@@ -118,8 +119,8 @@ export class ContactEmail {
 export class TrackingEvent {
   userId: string;
   repository: string;
-  logId1: string;
-  logId2: string;
+  jobId1: string;
+  jobId2: string;
   timeSpent: number;
   additions: boolean;
   deletions: boolean;
@@ -129,6 +130,18 @@ export class TrackingEvent {
   wrap: boolean;
   symmetricNodes: boolean;
   differencesOnly: boolean;
+  heartbeat: boolean;
+  constructor() {}
+}
+
+export class BugReport {
+  userId: string;
+  repository: string;
+  jobId1: string;
+  jobId2: string;
+  lineNr1: number;
+  lineNr2: number;
+  bug: string;
   constructor() {}
 }
 

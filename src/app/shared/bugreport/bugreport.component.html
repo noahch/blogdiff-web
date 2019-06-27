@@ -1,0 +1,28 @@
+<div class="container my-2">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="app-h1">Report a bug!</h1>
+    </div>
+  </div>
+  <div class="row" *ngIf="!bugSent">
+    <div class="col-12 my-1">
+      <input [(ngModel)]="bug.lineNr1" placeholder="Line Number in job before" class="form-control form-control-sm d-inline-block rounded-0 w-50" type="number"/>
+    </div>
+    <div class="col-12 my-1">
+      <input [(ngModel)]="bug.lineNr2" placeholder="Line Number in job after" class="form-control form-control-sm d-inline-block rounded-0 w-50" type="number"/>
+    </div>
+    <div class="col-12 my-1">
+      <textarea [(ngModel)]="bug.bug" maxlength="2048" placeholder="Please specify your bug!" class="form-control form-control-sm"></textarea>
+    </div>
+    <div class="col-12 my-1">
+      <button (click)="reportBug()" [disabled]="!(bug?.bug?.length > 3)" class="btn btn-sm btn-primary background-primary float-right">Submit</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12" *ngIf="bugSent">
+      <p>Thank you for reporting a bug!</p>
+      <button type="button" class="btn btn-sm btn-primary background-primary float-right" (click)="activeModal.close('Close')">Close</button>
+    </div>
+  </div>
+
+</div>

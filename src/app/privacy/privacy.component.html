@@ -1,0 +1,40 @@
+<div class="container mono-font mb-5">
+  <div class="row my-5">
+    <div class="col-12">
+      <h1 class="app-h1">Privacy</h1>
+    </div>
+    <div class="col-12">
+      <p>We take privacy seriously! The data collected will <strong>only</strong> be used for scientific purposes.</p>
+      <p>The following data will be tracked:</p>
+      <ul>
+        <li>UserID: randomly generated user ID.</li>
+        <li>Repository: the repository you used the tool with.</li>
+        <li>JobIDs: the ID's of the jobs you compared.</li>
+        <li>Time: How long you are active.</li>
+        <li>Settings: The settings of the tool.</li>
+      </ul>
+    </div>
+    <div class="col-12 mt-3">
+      <div *ngIf="currentTrackingEnabled">
+        <p>But you can also disable the tracking here:</p>
+        <button (click)="disableTracking()" class="btn btn-primary background-primary rounded-0">Disable tracking!</button>
+      </div>
+      <div *ngIf="!currentTrackingEnabled">
+        <p>You have currently disabled tracking. Please consider enabling tracking, so we have better data for our research:</p>
+        <button (click)="enableTracking()" class="btn btn-primary background-primary rounded-0">Enable tracking!</button>
+      </div>
+    </div>
+    <div class="col-12 mt-3">
+      <p>If we already have tracked some data, you can send us an email (blogdiff.net@gmail.com) with your userID, and we will delete your data.</p>
+      <button (click)="showUserId = !showUserId" class="btn btn-primary background-primary rounded-0 mb-3">{{showUserId ? 'Hide userId': 'Show userId'}}</button>
+      <div *ngIf="showUserId">
+        <p *ngIf="userId !== null">
+          {{userId}}
+        </p>
+        <p *ngIf="userId === null">
+          You don't have a userId yet.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
