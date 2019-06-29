@@ -7,6 +7,7 @@ import {NgModule} from '@angular/core';
 import {DiffSurveyComponent} from './diff-survey/diff-survey.component';
 import {HomeComponent} from './home/home.component';
 import {PrivacyComponent} from './privacy/privacy.component';
+import {InstructionsComponent} from './instructions/instructions.component';
 
 const appRoutes: Routes = [
   { path: '',
@@ -20,6 +21,9 @@ const appRoutes: Routes = [
   },
   { path: 'privacy',
     component: PrivacyComponent
+  },
+  { path: 'instructions',
+    component: InstructionsComponent
   }
 ];
 

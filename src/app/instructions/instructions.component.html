@@ -1,0 +1,132 @@
+<div class="custom-container mono-font">
+  <div class="row mt-3">
+    <div class="col-12">
+      <h1 class="app-h1">Instructions</h1>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <h2 class="app-h2">Table Of Contents</h2>
+      <ul>
+        <li>
+          <a pageScroll href="#introduction" [pageScrollDuration]="0">Introduction</a>
+        </li>
+        <li>
+          <a pageScroll href="#differencing" [pageScrollDuration]="0">Start Differencing</a>
+        </li>
+        <li>
+          <a pageScroll href="#selectjobs" [pageScrollDuration]="0">Select Jobs</a>
+        </li>
+        <li>
+          <a pageScroll href="#basics" [pageScrollDuration]="0">Differencing Basics</a>
+        </li>
+        <li>
+          <a pageScroll href="#settings" [pageScrollDuration]="0">Settings</a>
+        </li>
+        <li>
+          <a pageScroll href="#tips" [pageScrollDuration]="0">Tips</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <h2 class="app-h2" id="introduction">Introduction</h2>
+      <p>Finding failure causes in build logs can be a struggle. Most build logs are several hundred (or even thousand) lines long and contain a lot of information that is not relevant. Also comparing two logs is not easy, as normal differencing tools cannot properly handle irrelevant information (e.g. download speeds, timestamps) that change from execution to execution. BLogDiff allows you to easily compare two logs and reduce the lines to be considered to a bare minimum. BLogDiff currently only works with Java projects build with Maven and Travis-CI.</p>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <h2 class="app-h2" id="differencing">Start Differencing</h2>
+      <p>You have to options to start the differencing of two build logs. You can either use the manual mode, or directly start the differencing out of Travis-CI using the provided Google Chrome extension.
+      (If you do not have the extension installed already, please click <a pageScroll routerLink="/"  href="#download">here</a>)
+      </p>
+      <h3 class="app-h3 td-underline">Manual Mode</h3>
+      <p>When using the manual mode, you have two options. You can either user you "repository slug" or manually enter two job ID’s.</p>
+      <img src="../../assets/ins_manual_repo.jpg" class="instruction-image my-1" height="150">
+      <p>The <strong>repository slug</strong> can be inferred from the Travis-CI or the Github URL of your project and consists out of your username and the repository name. After submitting, a list of jobs will be loaded (see  <a pageScroll href="#selectjobs">Select Jobs</a> ).</p>
+      <div class="alert alert-info rounded-0">
+        <p><strong>Example</strong></p>
+        <p>
+          Travis-CI URL: https://travis-ci.org/<strong>noahch/blogdiff</strong> -> Repository Slug: <strong>noahch/blogdiff</strong>
+          <br>
+          Github URL: https://github.com/<strong>noahch/blogdiff</strong> -> Repository Slug: <strong>noahch/blogdiff</strong>
+        </p>
+      </div>
+      <img src="../../assets/ins_manual_jobs.jpg" class="instruction-image my-1" height="150">
+      <p>You can also just <strong>enter two job ID’s</strong> and submit the request. You will find the job ID in the first few lines of a Travis-CI build log.</p>
+      <div class="alert alert-warning rounded-0">
+        <p><strong>Attention</strong></p>
+        <p>Ensure that bot job ID's are from the same project.</p>
+      </div>
+      <h3 class="app-h3 td-underline">Google Chrome Extension</h3>
+      <img src="../../assets/active_extension.jpg" class="instruction-image my-1"/>
+      <p>Once you have installed the extension, you will find this icon <img src="../../assets/logo.png" height="20"/> in all your projects. Simply click on the icon and you will be redirected to the BLogDiff Application. </p>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <h2 class="app-h2" id="selectjobs">Select Jobs</h2>
+      <img src="../../assets/ins_selectjob.jpg" class="instruction-image my-1" height="157">
+      <p>Once you have selected a repository via extension or manual mode, two list of jobs are displayed. You can directly see the status of the build on the left side as well as further detailed information. After submitting the request, the differencing result will be displayed. </p>
+      <div class="alert alert-info rounded-0">
+        <p><strong>Info</strong></p>
+        <p>The list of jobs only contains the last 20 jobs. If you want to compare jobs that are older, please use the manual mode.</p>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <h2 class="app-h2" id="basics">Basics</h2>
+      <img src="../../assets/ins_compare.jpg" class="instruction-image my-1">
+      <p>Once the differencing is done, you can compare the two logs. The top row shows you basic statistics on the amount of changes. You can also collapse individual modules to get a better overview. Additions of lines are highlighted in green, deletions of lines in red, updates of lines in yellow and moves of lines in purple. </p>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <h2 class="app-h2" id="settings">Settings</h2>
+      <img src="../../assets/ins_settings.jpg" class="instruction-image my-1" height="157">
+      <p>You have several settings, which should help you to extract the information you need more quickly.</p>
+      <ul>
+        <li>
+          <strong>Show Additions:</strong> Enable or disable the highlighting of additions of lines
+        </li>
+        <li>
+          <strong>Show Deletions:</strong> Enable or disable the highlighting of deletions of lines
+        </li>
+        <li>
+          <strong>Show Updates:</strong> Enable or disable the highlighting of updates of lines
+        </li>
+        <li>
+          <strong>Show Moves:</strong> Enable or disable the highlighting of moves of lines
+        </li>
+        <li>
+          <strong>Highlight Moves:</strong> Enable or disable the highlighting of moved lines on click. When enabled and clicked on a move, the according lines in the other log are highlighted.
+        </li>
+        <li>
+          <strong>Wrap Lines:</strong> Enable or disable the wrapping of lines
+        </li>
+        <li>
+          <strong>Differences Only:</strong> When enabled, only lines that have changed are shown.
+        </li>
+        <li>
+          <strong>Symmetric Nodes:</strong> When enabled, only nodes (e.g. Maven modules) that are present in both logs are shown.
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <h2 class="app-h2" id="tips">Tips</h2>
+      <ul>
+        <li>The most efficient way is to enable "Differences Only" and only highlight updates.</li>
+        <li>If that is not enough, also enable additions and deletions.</li>
+        <li>If you have any problems or the tool does not work as expected, please file a bug report (right side in the settings panel).</li>
+      </ul>
+      <div class="alert alert-warning rounded-0">
+        <p><strong>Warning</strong></p>
+        <p>BLogDiff currently only works with Maven projects in combination with Travis-CI.</p>
+      </div>
+    </div>
+  </div>
+</div>

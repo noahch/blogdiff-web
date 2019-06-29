@@ -18,6 +18,9 @@ import { MiniSurveyComponent } from './mini-survey/mini-survey.component';
 import { HomeComponent } from './home/home.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { BugreportComponent } from './shared/bugreport/bugreport.component';
+import { InstructionsComponent } from './instructions/instructions.component';
+import {NgxPageScrollCoreModule} from 'ngx-page-scroll-core';
+import {NgxPageScrollModule} from 'ngx-page-scroll';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +33,8 @@ import { BugreportComponent } from './shared/bugreport/bugreport.component';
     MiniSurveyComponent,
     HomeComponent,
     PrivacyComponent,
-    BugreportComponent
+    BugreportComponent,
+    InstructionsComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,9 @@ import { BugreportComponent } from './shared/bugreport/bugreport.component';
     FontAwesomeModule,
     FormsModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPageScrollCoreModule.forRoot({duration: 0}),
+    NgxPageScrollModule
   ],
   entryComponents: [BugreportComponent],
   providers: [DataService

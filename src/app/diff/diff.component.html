@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="col-2">
-        <button (click)="diffManual()" [disabled]="repoSlug!== undefined && repoSlug.length < 3" class="btn btn-sm btn-primary background-primary float-right">Apply</button>
+        <button (click)="diffManual()" [disabled]="repoSlug === undefined || repoSlug?.length < 3" class="btn btn-sm btn-primary background-primary float-right">Apply</button>
       </div>
     </div>
     <div *ngIf="manual_mode" class="row mt-1">

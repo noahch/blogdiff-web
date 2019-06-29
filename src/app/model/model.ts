@@ -94,7 +94,7 @@ export class Settings {
   showDeletions = true;
   showUpdates = true;
   showMoves = false;
-  wrapLines = true;
+  wrapLines = false;
   differencer: string;
   highlightMove = true;
   differencesOnly = false;

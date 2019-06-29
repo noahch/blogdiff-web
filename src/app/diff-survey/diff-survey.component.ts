@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from '../services/data.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-diff-survey',
@@ -113,25 +114,121 @@ export class DiffSurveyComponent implements OnInit {
           {
             'type': 'text',
             'name': 'experience',
-            'title': 'How many years of experience do you have in a technological environment?',
+            'title': 'How much experience do you have as professional software developer or in operations?',
             'inputType': 'number'
           },
           {
+            'type': 'rating',
+            'name': 'build_log_experience',
+            'title': 'How often do you have to deal with build logs?',
+            'rateValues': [
+              {
+                'value': 1,
+                'text': 'very often'
+              },
+              {
+                'value': 2,
+                'text': 'often'
+              },
+              {
+                'value': 3,
+                'text': 'sometimes'
+              },
+              {
+                'value': 4,
+                'text': 'almost never'
+              },
+              {
+                'value': 5,
+                'text': 'never'
+              }
+            ]
+          },
+          {
             'type': 'radiogroup',
-            'name': 'buildlogs_seen',
-            'title': 'How many build logs have you seen so far?',
+            'name': 'primary_language',
+            'title': 'What is your primary programming language?',
+            'hasOther': true,
+            'choices': [
+              {
+                'value': 'java',
+                'text': 'Java'
+              },
+              {
+                'value': 'python',
+                'text': 'Python'
+              },
+              {
+                'value': 'c',
+                'text': 'C'
+              },
+              {
+                'value': 'cpp',
+                'text': 'C++'
+              },
+              {
+                'value': 'cs',
+                'text': 'C#'
+              },
+              {
+                'value': 'ruby',
+                'text': 'Ruby'
+              }
+            ]
+          },
+          {
+            'type': 'radiogroup',
+            'name': 'build_tool_use',
+            'title': 'What\'s the build tool you use the most often?',
+            'hasOther': true,
+            'choices': [
+              {
+                'value': 'maven',
+                'text': 'Maven'
+              },
+              {
+                'value': 'gradle',
+                'text': 'Gradle'
+              },
+              {
+                'value': 'ant',
+                'text': 'Ant'
+              },
+              {
+                'value': 'rake',
+                'text': 'Rake'
+              },
+              {
+                'value': 'grunt',
+                'text': 'Grunt'
+              },
+              {
+                'value': 'make',
+                'text': 'Make'
+              }
+            ]
+          },
+          {
+            'type': 'radiogroup',
+            'name': 'ci_use',
+            'title': 'What CI (continuous integration) platform do you use the most often?',
+            'hasOther': true,
             'choices': [
               {
                 'value': 'none',
                 'text': 'none'
               },
               {
-                'value': 'less10',
-                'text': 'less than 10'
+                'value': 'travis',
+                'text': 'Travis-CI'
               },
               {
-                'value': 'more10',
-                'text': 'more than 10'
+                'value': 'jenkins',
+                'text': 'Jenkins'
+              },
+              {
+                'value': 'circle',
+                'text': 'Circle-CI'
               }
             ]
           }
@@ -197,7 +294,7 @@ export class DiffSurveyComponent implements OnInit {
           {
             'type': 'text',
             'name': 'failing_builds',
-            'title': 'How often do you have failing builds (in percent)?',
+            'title': 'How many of your builds fail (in percent)?',
             'validators': [
               {
                 'type': 'numeric',
@@ -211,12 +308,12 @@ export class DiffSurveyComponent implements OnInit {
           {
             'type': 'text',
             'name': 'time_to_find_failure',
-            'title': 'How long does it usually take you to find the failure cause when looking at the build log (in minutes)?',
+            'title': 'How long does it usually take you to find the failure cause when looking at a build log (in minutes)?',
             'inputType': 'number'
           }
         ],
         'title': 'About your project',
-        'description': 'Please give us some information about your project. If you do not have any project in mind, please answer the questions in general.'
+        'description': 'Please give us some information about your current project. If you do not have any project in mind, please answer the questions in general.'
       },
       {
         'name': 'tool',
@@ -224,7 +321,7 @@ export class DiffSurveyComponent implements OnInit {
           {
             'type': 'rating',
             'name': 'useful',
-            'title': 'Do you think a tool such as BLogDiff is useful in general?',
+            'title': 'How would you rate BLogDiff in terms of usefulness?',
             'rateValues': [
               {
                 'value': 1,
@@ -251,7 +348,7 @@ export class DiffSurveyComponent implements OnInit {
           {
             'type': 'rating',
             'name': 'easy_to_use',
-            'title': 'Do you think BLogDiff is easy to use?',
+            'title': 'How would you rate BLogDiff in terms of its ease of use?',
             'rateValues': [
               {
                 'value': 1,
@@ -278,15 +375,15 @@ export class DiffSurveyComponent implements OnInit {
           {
             'type': 'rating',
             'name': 'filtering_noise',
-            'title': 'Do you think filtering noise (e.g. download speeds, timestamps, etc.) is useful?',
+            'title': 'Build logs contain noise (e.g. download speeds, timestamps, etc.) which is filtered by BLogDiff. Do you miss this kind of information?',
             'rateValues': [
               {
                 'value': 1,
-                'text': 'very useful'
+                'text': 'not at all'
               },
               {
                 'value': 2,
-                'text': 'useful'
+                'text': 'rarely'
               },
               {
                 'value': 3,
@@ -294,26 +391,26 @@ export class DiffSurveyComponent implements OnInit {
               },
               {
                 'value': 4,
-                'text': 'not useful'
+                'text': 'sometimes'
               },
               {
                 'value': 5,
-                'text': 'not useful at all'
+                'text': 'yes, a lot'
               }
             ]
           },
           {
             'type': 'rating',
             'name': 'integation',
-            'title': 'Do you think a tool such as BLogDiff could be easily inegrated in your daily workflow?',
+            'title': 'How would you rate BLogDiff in terms of effort needed to integrate it in your daily workflow?',
             'rateValues': [
               {
                 'value': 1,
-                'text': 'very easily'
+                'text': 'very little effort'
               },
               {
                 'value': 2,
-                'text': 'easily'
+                'text': 'little effort'
               },
               {
                 'value': 3,
@@ -321,45 +418,45 @@ export class DiffSurveyComponent implements OnInit {
               },
               {
                 'value': 4,
-                'text': 'not easily'
+                'text': 'much effort'
               },
               {
                 'value': 5,
-                'text': 'not easily at all'
+                'text': 'very much effort'
               }
             ]
           },
           {
             'type': 'rating',
             'name': 'find_faster',
-            'title': 'Did you find your failure cause faster than usual?',
+            'title': 'Did the time needed to find the failure cause change when using BLogDiff?',
             'rateValues': [
               {
                 'value': 1,
-                'text': 'much faster'
+                'text': 'it was much faster'
               },
               {
                 'value': 2,
-                'text': 'a little faster'
+                'text': 'it was a little faster'
               },
               {
                 'value': 3,
-                'text': 'as long as usual'
+                'text': 'it did not change'
               },
               {
                 'value': 4,
-                'text': 'a little slower'
+                'text': 'it was a little slower'
               },
               {
                 'value': 5,
-                'text': 'much slower'
+                'text': 'it was much slower'
               }
             ]
           },
           {
             'type': 'rating',
             'name': 'accuracy',
-            'title': 'Do you think the differencing was accurate?',
+            'title': 'How accurate was the differencing presented by BLogDiff?',
             'rateValues': [
               {
                 'value': 1,
@@ -465,12 +562,24 @@ export class DiffSurveyComponent implements OnInit {
             ]
           },
           {
-            'type': 'text',
+            'type': 'comment',
             'name': 'suggestion',
             'title': 'Do you have any suggestions on how to improve BLogDiff?'
           },
           {
-            'type': 'text',
+            'type': 'comment',
+            'name': 'usually_process',
+            'title': 'How do you usually process build logs?'
+          }
+        ],
+        'title': 'About BLogDiff',
+        'description': 'Tell us what you think about BLogDiff.'
+      },
+      {
+        'name': 'wrapup',
+        'elements': [
+          {
+            'type': 'comment',
             'name': 'comment',
             'title': 'Do you have any other comments?'
           },
@@ -502,15 +611,26 @@ export class DiffSurveyComponent implements OnInit {
             'inputType': 'email'
           }
         ],
-        'title': 'About BLogDiff',
-        'description': 'Tell us what you think about BLogDiff.'
+        'title': 'Wrap up',
+        'description': 'A few last questions...'
       }
     ],
     'showProgressBar': 'top'
   };
   alreadyDone: boolean;
+  source: number;
+  step = 0;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+
+      if (params['source'] !== undefined && !isNaN(Number(params['source']))) {
+        this.source = params['source'];
+      } else {
+        this.source = 0;
+      }
+    });
+  }
 
   ngOnInit() {
     this.alreadyDone = sessionStorage.getItem('surveySent') === 'true';
@@ -521,7 +641,8 @@ export class DiffSurveyComponent implements OnInit {
 
   sendData(result) {
     // TODO update with your own behavior
-    this.dataService.survey(JSON.stringify(result));
+
+    this.dataService.survey(JSON.stringify(result), this.source);
     sessionStorage.setItem('surveySent', 'true');
     console.log(JSON.stringify(result));
   }
