@@ -5,11 +5,23 @@
 }
 
 .node-collapser{
-  position: relative;
+  position: absolute;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  left: 0px;
+  line-height: 10px;
+  font-size: 14px;
+  color: #7b989c;
+  cursor: pointer;
+}
+
+.flex-node-collapser{
+  position: absolute;
+  display: inline-block;
   width: 10px;
   height: 10px;
   left: -15px;
-  top: 10px;
   line-height: 10px;
   font-size: 14px;
   color: #7b989c;
@@ -25,7 +37,11 @@
 }
 
 .node {
-  margin-top: -10px;
+}
+
+.flex-node{
+  display: flex;
+  position: relative;
 }
 
 .line-nr{

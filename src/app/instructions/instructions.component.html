@@ -26,6 +26,9 @@
         <li>
           <a pageScroll href="#tips" [pageScrollDuration]="0">Tips</a>
         </li>
+        <li>
+          <a pageScroll href="#demo" [pageScrollDuration]="0">Demo</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -129,4 +132,13 @@
       </div>
     </div>
   </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <h2 class="app-h2" id="demo">Demo</h2>
+      <p>Try BLogDiff on an example repository.</p>
+      <a class="btn btn-primary background-primary mb-1 rounded-0" routerLink="/differencing" [queryParams]="{ jobId : 549928009 }">Demo</a>
+    </div>
+  </div>
 </div>
+
+
