@@ -141,6 +141,10 @@ export class DiffSurveyComponent implements OnInit {
               {
                 'value': 5,
                 'text': 'never'
+              },
+              {
+                'value': '0',
+                'text': 'no answer'
               }
             ]
           },
@@ -342,6 +346,10 @@ export class DiffSurveyComponent implements OnInit {
               {
                 'value': 5,
                 'text': 'not useful at all'
+              },
+              {
+                'value': '0',
+                'text': 'no answer'
               }
             ]
           },
@@ -369,6 +377,10 @@ export class DiffSurveyComponent implements OnInit {
               {
                 'value': 5,
                 'text': 'not easy at all'
+              },
+              {
+                'value': '0',
+                'text': 'no answer'
               }
             ]
           },
@@ -396,6 +408,10 @@ export class DiffSurveyComponent implements OnInit {
               {
                 'value': 5,
                 'text': 'yes, a lot'
+              },
+              {
+                'value': '0',
+                'text': 'no answer'
               }
             ]
           },
@@ -423,40 +439,48 @@ export class DiffSurveyComponent implements OnInit {
               {
                 'value': 5,
                 'text': 'very much effort'
+              },
+              {
+                'value': '0',
+                'text': 'no answer'
               }
             ]
           },
           {
             'type': 'rating',
             'name': 'find_faster',
-            'title': 'Did the time needed to find the failure cause change when using BLogDiff?',
+            'title': 'Based on your impression of BLogDiff, do you think the time to find the failure cause will change compared to your current method?',
             'rateValues': [
               {
                 'value': 1,
-                'text': 'it was much faster'
+                'text': 'it will be much faster'
               },
               {
                 'value': 2,
-                'text': 'it was a little faster'
+                'text': 'it will be little faster'
               },
               {
                 'value': 3,
-                'text': 'it did not change'
+                'text': 'it will not change'
               },
               {
                 'value': 4,
-                'text': 'it was a little slower'
+                'text': 'it will be a little slower'
               },
               {
                 'value': 5,
-                'text': 'it was much slower'
+                'text': 'it will be much slower'
+              },
+              {
+                'value': '0',
+                'text': 'no answer'
               }
             ]
           },
           {
             'type': 'rating',
             'name': 'accuracy',
-            'title': 'How accurate was the differencing presented by BLogDiff?',
+            'title': 'Based on your impression of BLogDiff, how would you rate the accurracy of the differencing presented?',
             'rateValues': [
               {
                 'value': 1,
@@ -477,6 +501,10 @@ export class DiffSurveyComponent implements OnInit {
               {
                 'value': 5,
                 'text': 'not accurate at all'
+              },
+              {
+                'value': '0',
+                'text': 'no answer'
               }
             ]
           },
@@ -504,13 +532,17 @@ export class DiffSurveyComponent implements OnInit {
               {
                 'value': 5,
                 'text': 'big disadvantage'
+              },
+              {
+                'value': '0',
+                'text': 'no answer'
               }
             ]
           },
           {
             'type': 'rating',
             'name': 'use_again',
-            'title': 'How likely are you to use the BLogDiff again?',
+            'title': 'How likely are you to use the BLogDiff (again)?',
             'rateValues': [
               {
                 'value': 1,
@@ -531,6 +563,10 @@ export class DiffSurveyComponent implements OnInit {
               {
                 'value': 5,
                 'text': 'not likely at all'
+              },
+              {
+                'value': '0',
+                'text': 'no answer'
               }
             ]
           },
@@ -558,6 +594,10 @@ export class DiffSurveyComponent implements OnInit {
               {
                 'value': 5,
                 'text': 'not likely at all'
+              },
+              {
+                'value': '0',
+                'text': 'no answer'
               }
             ]
           },
@@ -599,10 +639,25 @@ export class DiffSurveyComponent implements OnInit {
             ]
           },
           {
+            'type': 'radiogroup',
+            'name': 'raffle',
+            'title': 'Do you want to take part in the raffle for a 50$ gift card? (Please provide your email address)',
+            'choices': [
+              {
+                'value': 'yes',
+                'text': 'yes'
+              },
+              {
+                'value': 'no',
+                'text': 'no'
+              }
+            ]
+          },
+          {
             'type': 'text',
             'name': 'email',
-            'visibleIf': '{contact_again} = \'yes\'',
-            'title': 'Your email address?',
+            'visibleIf': '{contact_again} = \'yes\' or {raffle} = \'yes\'',
+            'title': 'Please enter you email address',
             'validators': [
               {
                 'type': 'email'
@@ -618,6 +673,7 @@ export class DiffSurveyComponent implements OnInit {
     'showProgressBar': 'top'
   };
   alreadyDone: boolean;
+  usedTool: boolean;
   source: number;
   step = 0;
 
@@ -642,7 +698,7 @@ export class DiffSurveyComponent implements OnInit {
   sendData(result) {
     // TODO update with your own behavior
 
-    this.dataService.survey(JSON.stringify(result), this.source);
+    this.dataService.survey(JSON.stringify(result), this.source, this.usedTool);
     sessionStorage.setItem('surveySent', 'true');
     console.log(JSON.stringify(result));
   }
