@@ -114,7 +114,7 @@ export class DiffSurveyComponent implements OnInit {
           {
             'type': 'text',
             'name': 'experience',
-            'title': 'How much experience do you have as professional software developer or in operations?',
+            'title': 'How much experience do you have as professional software developer or in operations? (in years)',
             'inputType': 'number'
           },
           {
