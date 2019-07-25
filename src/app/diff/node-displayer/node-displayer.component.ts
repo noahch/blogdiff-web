@@ -34,11 +34,13 @@ export class NodeDisplayerComponent implements OnInit {
     if (!this.leftNode) {
       this.editAction.linesBeforeActions.forEach(value => {
         if (value.type === LineActionType.UPDATE) {
-          const line = this.buildLogNode.linesBefore.find(value1 => {
-            return value1.internalLineIndex === value.positionAfter && value1.internalLineIndex === value.positionBefore;
-          });
-          if (line !== undefined) {
-            line.content = this.highlightString(value.contentAfter, value.contentBefore);
+          if (!this.leftNode) {
+            const line = this.buildLogNode.linesBefore.find(value1 => {
+              return value1.internalLineIndex === value.positionAfter;
+            });
+            if (line !== undefined) {
+              line.content = this.highlightString(value.contentAfter, value.contentBefore);
+            }
           }
         }
       });
@@ -68,7 +70,7 @@ export class NodeDisplayerComponent implements OnInit {
         }
       }
       lineAction = lineActions.find(value => {
-        return value.positionBefore === lineNr && value.positionAfter === lineNr && value.type === LineActionType.UPDATE;
+        return ((value.positionBefore === lineNr && this.leftNode ) || ( value.positionAfter === lineNr && !this.leftNode)) && value.type === LineActionType.UPDATE;
       });
       if (lineAction !== undefined) {
         if (this.settings.showUpdates) {
