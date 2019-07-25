@@ -1,30 +1,63 @@
 <div class="container mono-font mt-3">
-  <div *ngIf="step===0">
+  <div *ngIf="step===0 && !alreadyDone">
     <h1 class="app-h1">Thank you! This will only take a few minutes.</h1>
-    <p>Thank you for being willing to take part in our survey. This survey (as well as the tool) is part of a bachelor's thesis
-      at the <strong>University of Zurich</strong> in the department of informatics. The data collected will
-      be used for scientific purposes exclusively! Every feedback we can get is highly appreciated, please feel free to share this survey!</p>
-    <p>The survey consists out of <strong>27 questions (4 open, 23 closed)</strong> and roughly takes about <strong>3 minutes</strong>.</p>
-    <p>Participation in the survey is voluntary, but by participating you give us permission that we may use and publish the results in a scientific study.</p>
+    <div class="row">
+      <div class="col-8">
+        <p>Thank you for helping, I greatly appreciate that!
+        </p>
+      </div>
+      <div class="col-2">
+        <img src="../../assets/uzh_logo.png" class="w-100">
+      </div>
+      <div class="col-2">
+        <img src="../../assets/seal-logo.jpg" class="w-100">
+      </div>
+    </div>
 
-    <h2 class="app-h2">Have you already used BLogDiff?</h2>
-    <button (click)="step=1" class="btn btn-primary background-primary rounded-0 mr-2">No, I want to see the instructions first.</button>
-    <button (click)="step=2" class="btn btn-primary background-primary rounded-0">Yes, I know the tool. Let's start with the survey.</button>
+    <div class="row">
+      <div class="col-12">
+        <h2 class="app-h2">About the creator of BLogDiff</h2>
+      </div>
+      <div class="col-3">
+        <img src="../../assets/noah.jpg" class="w-100">
+      </div>
+      <div class="col-9">
+        <p>Hi! My name is Noah and I am currently finishing my bachelor's degree in business informatics/information systems at the University of Zurich.
+          I want to understand whether <i>a specialized build log differencing tool can support developers</i>.
+          As a result, I created <strong>BLogDiff</strong> and I need your help to evaluate its usefulness.
+          You would help me tremendously by providing me with some feedback on the tool.
+          I created a survey that consists of 29 questions (4 open, 25 closed), it is super easy to go through the questions and it only takes about 3 minutes to answer.
+          If you participate, you will even have the chance to win a <span class="giftcard"> <fa-icon [icon]="['fas', 'gift']"></fa-icon> 50$ gift voucher</span> from the shop of your choice (e.g., Amazon).
+        </p>
+        <p>Please help me and participate in the survey!</p>
+      </div>
+
+    </div>
+
+
+    <div class="row mt-2">
+      <div class="col-12">
+        <h2 class="app-h2">Have you already used BLogDiff?</h2>
+        <button (click)="step=1; usedTool = false;" class="btn btn-primary background-primary rounded-0 mr-2">No, I want to see the instructions first.</button>
+        <button (click)="step=2; usedTool = true;" class="btn btn-primary background-primary rounded-0">Yes, I know the tool. Let's start with the survey.</button>
+      </div>
+    </div>
+
   </div>
-  <div *ngIf="step===1">
+  <div *ngIf="step===1 && !alreadyDone">
     <h1 class="app-h1">Please read the instructions and continue to the survey</h1>
     <hr>
     <button (click)="step=2"  class="btn btn-primary background-primary float-right done-btn rounded-0">I'm done. Start the survey!</button>
     <app-instructions></app-instructions>
   </div>
-  <div *ngIf="step===2">
-    <div class="p-3" *ngIf="!alreadyDone">
+  <div *ngIf="step===2 && !alreadyDone">
+    <div class="p-3">
       <h1 class="app-h1">Survey, you are almost done!</h1>
       <survey [json]="json" (submitSurvey)="sendData($event)" ></survey>
     </div>
-    <div class="p-3" *ngIf="alreadyDone">
-      <p>Thank you! You have already helped enough ;)</p>
-    </div>
+  </div>
+  <div class="p-3" *ngIf="alreadyDone">
+    <p>Thank you! You have already helped enough ;)</p>
   </div>
 
 

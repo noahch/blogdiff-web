@@ -41,8 +41,8 @@ export class DataService {
   getJobsForRepo(user: string, repository: string): Observable<Job[]> {
     return this.httpClient.get<Job[]>(this.baseUrl + '/repo/' + user + '/' + repository, {headers: this.headers});
   }
-  survey(surveyResult: string, source: number): void {
-    this.httpClient.post(this.baseUrl + '/survey/' + source, surveyResult, {headers: this.headers}).subscribe();
+  survey(surveyResult: string, source: number, usedTool: boolean): void {
+    this.httpClient.post(this.baseUrl + '/survey/' + source + '/' + usedTool , surveyResult, {headers: this.headers}).subscribe();
   }
   miniSurvey(miniSurveyResult: MiniSurveyResult): void {
     this.httpClient.post(this.baseUrl + '/miniSurvey', miniSurveyResult, {headers: this.headers}).subscribe();
